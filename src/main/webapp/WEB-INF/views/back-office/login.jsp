@@ -17,7 +17,7 @@
             <p>Espace réservé à la rédaction numérique</p>
         </div>
 
-        <form action="${pageContext.request.contextPath}/login" method="post">
+        <form action="${pageContext.request.contextPath}/admin/login" method="post">
             <div class="form-group">
                 <label for="username">Nom d'utilisateur</label>
                 <input type="text" id="username" name="username" placeholder="Votre nom" required>

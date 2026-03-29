@@ -15,4 +15,13 @@ public class LoginServlet extends HttpServlet {
         request.getRequestDispatcher("/WEB-INF/views/back-office/login.jsp")
                 .forward(request, response);
     }
+
+    @Override
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        request.getRequestDispatcher("/WEB-INF/views/back-office/home.jsp")
+                .forward(request, response);
+    }
+
+
 }
