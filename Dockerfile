@@ -11,13 +11,13 @@ COPY src ./src
 RUN mvn clean package
 
 # --- ÉTAPE 2 : Serveur Tomcat 10 ---
-FROM tomcat:10.1.53-jdk21-bookworm
+FROM tomcat:10.1-jdk21
 
 # Nettoyage des applications par défaut de Tomcat
 RUN rm -rf /usr/local/tomcat/webapps/*
 
 # On copie le driver Postgres depuis ton dossier lib local
-COPY lib/postgres-42.7.9.jar /usr/local/tomcat/lib/
+COPY lib/postgresql-42.7.9.jar /usr/local/tomcat/lib/
 
 # On récupère le fichier .war généré à l'étape 1 pour le mettre dans Tomcat
 # Maven nomme le fichier "ROOT.war" car nous l'avons précisé dans le pom.xml
