@@ -1,0 +1,137 @@
+@font-face {
+    font-family: 'Inter';
+    src: url('../font/Inter-VariableFont_opsz\,wght.ttf') format('truetype');
+    font-weight: 100 900;
+    font-style: normal;
+}
+
+:root {
+    --lm-black: #000000;       
+    --lm-grey-dark: #333333;   
+    --lm-grey-light: #f6f6f6;  
+    --lm-border: #e1e1e1;      
+    --lm-accent-blue: #0061a1;
+    --white: #ffffff;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Inter', sans-serif;
+}
+
+body {
+    background-color: var(--lm-grey-light);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    /* On garde une trame de fond, mais encore plus discrète, comme du papier */
+    background-image: linear-gradient(var(--lm-border) 1px, transparent 1px),
+                      linear-gradient(90deg, var(--lm-border) 1px, transparent 1px);
+    background-size: 50px 50px;
+    background-color: #fafafa;
+}
+
+.login-container {
+    background: var(--white);
+    width: 100%;
+    max-width: 440px;
+    padding: 3rem 2.5rem;
+    border-radius: 12px; /* Le Monde utilise des angles droits pour le sérieux, mais on peut mettre 4px si vous préférez */
+    border: 1px solid var(--lm-border);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+}
+
+.header {
+    text-align: center;
+    margin-bottom: 3rem;
+    border-bottom: 2px solid var(--lm-black); /* Ligne de séparation style journal */
+    padding-bottom: 1.5rem;
+}
+
+.header h1 {
+    color: var(--lm-black);
+    font-size: 1.8rem;
+    font-weight: 900;
+    letter-spacing: -0.05em;
+    text-transform: uppercase;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.header p {
+    color: var(--lm-grey-dark);
+    font-size: 0.9rem;
+    margin-top: 0.5rem;
+    font-style: italic; /* Côté rédactionnel */
+}
+
+.form-group {
+    margin-bottom: 1.5rem;
+}
+
+label {
+    display: block;
+    font-size: 0.8rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    color: var(--lm-black);
+    margin-bottom: 0.5rem;
+}
+
+input {
+    width: 100%;
+    padding: 0.8rem;
+    border: 1px solid var(--lm-border);
+    border-radius: 12px; 
+    background-color: var(--white);
+    transition: border-color 0.2s;
+    outline: none;
+    font-size: 14px;
+}
+
+input:focus {
+    border-color: var(--lm-black); 
+    background-color: var(--white);
+}
+
+.btn-submit {
+    width: 100%;
+    padding: 1rem;
+    background-color: var(--lm-black); 
+    color: var(--white);
+    border: 1px solid var(--lm-black);
+    border-radius: 12px;
+    font-weight: 700;
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+}
+
+.btn-submit:hover {
+    background-color: var(--white);
+    color: var(--lm-black);
+}
+
+
+
+.footer-links {
+    text-align: center;
+    margin-top: 1.5rem;
+}
+
+.footer-links a {
+    color: var(--lm-accent-blue);
+    font-size: 0.8rem;
+    text-decoration: none;
+    font-weight: 500;
+}
+
+.footer-links a:hover {
+    text-decoration: underline;
+}

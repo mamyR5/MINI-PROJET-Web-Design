@@ -13,9 +13,9 @@ public class TestServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) 
             throws ServletException, IOException {
         
-        String pathInfo = request.getPathInfo(); 
+             int id = Integer.parseInt(request.getParameter("id"));
+            request.setAttribute("articleId", id);
         
-        request.setAttribute("slugDetecte", pathInfo);
 
         request.getRequestDispatcher("/WEB-INF/views/front-office/test.jsp")
                .forward(request, response);
