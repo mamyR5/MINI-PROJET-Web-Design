@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.sql.Connection;
 import webdesign.util.DatabaseConnection;
 import jakarta.servlet.ServletException;
+import java.sql.SQLException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -14,7 +15,7 @@ public class RedactionServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException  {
+            throws ServletException, IOException{
 
         if(LoginServlet.verifySession(request, response)){
             CategorieDao categorieDAO = new CategorieDao();
