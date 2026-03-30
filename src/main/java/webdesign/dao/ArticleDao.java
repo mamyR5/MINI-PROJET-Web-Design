@@ -9,21 +9,36 @@ import java.util.List;
 
 public class ArticleDao {
 
-    
+    public int save(Article article, Connection con) throws SQLException {
+        String sql = "INSERT INTO article (titre, contenu, id_categorie, id_utilisateur) VALUES (?, ?, ?, ?) RETURNING id";
+
+        try (PreparedStatement ps = con.prepareStatement(sql)) {
+            ps.setString(1, article.getTitre());
+            ps.setString(2, article.getContenu());
+            ps.setInt(3, article.getCategorie().getId());
+            ps.setInt(4, article.getIdUtilisateur());
+
+            // On utilise executeQuery() car RETURNING id renvoie un ResultSet
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                return rs.getInt(1); // On récupère l'ID généré
+            }
+        }
+        return -1;
+    }
 
     // Récupérer les 10 derniers articles pour l'accueil
     public List<Article> findLatest(Connection conn) {
         List<Article> articles = new ArrayList<>();
-        String sql = "SELECT a.id, titre, contenu, date_publication, " +
-                "id_categorie, id_utilisateur,designation,couleur_fond,couleur_texte " +
-                "FROM article a " +
-                "JOIN  categorie c " +
-                "ON c.id = a.id_categorie " +
-                "ORDER BY date_publication DESC LIMIT 10";
+        String sql = "SELECT a.id, titre, contenu, date_publication, "
+                + "id_categorie, id_utilisateur,designation,couleur_fond,couleur_texte "
+                + "FROM article a "
+                + "JOIN  categorie c "
+                + "ON c.id = a.id_categorie "
+                + "ORDER BY date_publication DESC LIMIT 10";
 
         try (
-                PreparedStatement ps = conn.prepareStatement(sql);
-                ResultSet rs = ps.executeQuery()) {
+                PreparedStatement ps = conn.prepareStatement(sql); ResultSet rs = ps.executeQuery()) {
 
             while (rs.next()) {
                 articles.add(mapArticle(rs));
@@ -39,12 +54,12 @@ public class ArticleDao {
     // Récupérer un article par son id (page détail)
     public Article findById(Connection conn, int id) {
         Article article = null;
-        String sql = "SELECT a.id, titre, contenu, date_publication, " +
-                "id_categorie, id_utilisateur, designation, couleur_fond, couleur_texte " +
-                "FROM article a " +
-                "JOIN categorie c " +
-                "ON c.id = a.id_categorie " +
-                "WHERE a.id = ?";
+        String sql = "SELECT a.id, titre, contenu, date_publication, "
+                + "id_categorie, id_utilisateur, designation, couleur_fond, couleur_texte "
+                + "FROM article a "
+                + "JOIN categorie c "
+                + "ON c.id = a.id_categorie "
+                + "WHERE a.id = ?";
 
         try (
                 PreparedStatement ps = conn.prepareStatement(sql)) {
@@ -65,13 +80,13 @@ public class ArticleDao {
     // Récupérer les articles d'une catégorie
     public List<Article> findByCategorie(Connection conn, int idCategorie) {
         List<Article> articles = new ArrayList<>();
-        String sql = "SELECT a.id, titre, contenu, date_publication, " +
-                "id_categorie, id_utilisateur, designation, couleur_fond, couleur_texte " +
-                "FROM article a " +
-                "JOIN categorie c " +
-                "ON c.id = a.id_categorie " +
-                "WHERE a.id_categorie = ? " +
-                "ORDER BY date_publication DESC";
+        String sql = "SELECT a.id, titre, contenu, date_publication, "
+                + "id_categorie, id_utilisateur, designation, couleur_fond, couleur_texte "
+                + "FROM article a "
+                + "JOIN categorie c "
+                + "ON c.id = a.id_categorie "
+                + "WHERE a.id_categorie = ? "
+                + "ORDER BY date_publication DESC";
 
         try (
                 PreparedStatement ps = conn.prepareStatement(sql)) {
