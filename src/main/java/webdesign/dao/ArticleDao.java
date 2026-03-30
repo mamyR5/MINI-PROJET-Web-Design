@@ -39,6 +39,29 @@ public class ArticleDao {
         }
     }
 
+    public List<Article> findAll(Connection conn) {
+        List<Article> articles = new ArrayList<>();
+        String sql = "SELECT id,titre,slug,date_publication FROM article";
+
+        try (
+                PreparedStatement ps = conn.prepareStatement(sql); ResultSet rs = ps.executeQuery()) {
+
+            while (rs.next()) {
+                Article article = new Article();
+                article.setId(rs.getInt("id"));
+                article.setTitre(rs.getString("titre"));
+                article.setSlug(rs.getString("slug"));
+                article.setDatePublication(rs.getTimestamp("date_publication"));
+                articles.add(article);
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+            System.out.println(e.getMessage());
+        }
+        return articles;
+    }
+
     // Récupérer les 10 derniers articles pour l'accueil
     public List<Article> findLatest(Connection conn) {
         List<Article> articles = new ArrayList<>();
