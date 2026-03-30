@@ -9,6 +9,8 @@ import java.util.List;
 
 public class ArticleDao {
 
+    
+
     // Récupérer les 10 derniers articles pour l'accueil
     public List<Article> findLatest(Connection conn) {
         List<Article> articles = new ArrayList<>();

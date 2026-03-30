@@ -58,7 +58,8 @@ public class RedactionServlet extends HttpServlet {
         
         if (filePart != null && filePart.getSize() > 0) {
             String fileName = "article_" + System.currentTimeMillis() + ".jpg";
-            String uploadPath = getServletContext().getRealPath("/") + "assets/uploads/" + fileName;
+            String uploadPath = "/uploads_data/" + fileName;
+            System.out.println("Chemin de sauvegarde de l'image: " + uploadPath);
             
             try {
                 ImageUtil imageUtil = new ImageUtil();
@@ -68,6 +69,8 @@ public class RedactionServlet extends HttpServlet {
                 e.printStackTrace();
             }
         }
+
+        
 
 
         response.sendRedirect(request.getContextPath() + "/admin/home");
