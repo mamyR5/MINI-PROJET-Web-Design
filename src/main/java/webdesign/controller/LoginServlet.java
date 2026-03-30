@@ -36,39 +36,22 @@ public class LoginServlet extends HttpServlet {
                 System.out.println("username = " + username + " password = " + password);
                 Role userRole = userDAO.getRolesByUtilisateurId(user.getId()).get(0);
 
-                System.out.println("Role = "+userRole.getDesignation());
+                System.out.println("Role = " + userRole.getDesignation());
 
-                if(userRole.getDesignation().equals("Admin")){
+                if (userRole.getDesignation().equals("Admin")) {
                     response.sendRedirect(request.getContextPath() + "/admin/home");
-                }else{
-                    throw new Exception("Utilisateur non autoris&eacute.");
+                } else {
+                    throw new Exception("Utilisateur non autorisé.");
                 }
-                
+
             } else {
-                throw new Exception("Utilisateur non authentifi&eacute.");
+                throw new Exception("Utilisateur non authentifié.");
             }
 
         } catch (Exception ex) {
+            ex.printStackTrace();
             response.sendRedirect(request.getContextPath() + "/admin/login?error=" + ex.getMessage());
         }
-
-        /*Connection connexion = null;
-
-        try{
-            connexion = DbConnection.getConnection();
-            System.out.println("Mandeha ilay connection.");
-        }catch(Exception ex){
-            ex.printStackTrace();
-        }finally{
-            if(connexion!=null){
-                try {
-                    connexion.close(); 
-                    System.out.println("Connexion fermée avec succès.");
-                } catch (SQLException e) {
-                    e.printStackTrace(); // Erreur lors de la fermeture
-                }
-            }
-        }*/
     }
 
 }
