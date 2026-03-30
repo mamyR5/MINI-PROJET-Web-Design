@@ -1,0 +1,113 @@
+package webdesign.dao;
+
+import webdesign.model.Article;
+import webdesign.model.Categorie;
+
+import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
+
+public class ArticleDao {
+
+    // Récupérer les 10 derniers articles pour l'accueil
+    public List<Article> findLatest(Connection conn) {
+        List<Article> articles = new ArrayList<>();
+        String sql = "SELECT a.id, titre, contenu, date_publication, " +
+                "id_categorie, id_utilisateur,designation,couleur_fond,couleur_texte " +
+                "FROM article a " +
+                "JOIN  categorie c " +
+                "ON c.id = a.id_categorie " +
+                "ORDER BY date_publication DESC LIMIT 10";
+
+        try (
+                PreparedStatement ps = conn.prepareStatement(sql);
+                ResultSet rs = ps.executeQuery()) {
+
+            while (rs.next()) {
+                articles.add(mapArticle(rs));
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+            System.out.println(e.getMessage());
+        }
+        return articles;
+    }
+
+    // Récupérer un article par son id (page détail)
+    public Article findById(Connection conn, int id) {
+        Article article = null;
+        String sql = "SELECT a.id, titre, contenu, date_publication, " +
+                "id_categorie, id_utilisateur, designation, couleur_fond, couleur_texte " +
+                "FROM article a " +
+                "JOIN categorie c " +
+                "ON c.id = a.id_categorie " +
+                "WHERE a.id = ?";
+
+        try (
+                PreparedStatement ps = conn.prepareStatement(sql)) {
+
+            ps.setInt(1, id);
+            ResultSet rs = ps.executeQuery();
+
+            if (rs.next()) {
+                article = mapArticle(rs);
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return article;
+    }
+
+    // Récupérer les articles d'une catégorie
+    public List<Article> findByCategorie(Connection conn, int idCategorie) {
+        List<Article> articles = new ArrayList<>();
+        String sql = "SELECT a.id, titre, contenu, date_publication, " +
+                "id_categorie, id_utilisateur, designation, couleur_fond, couleur_texte " +
+                "FROM article a " +
+                "JOIN categorie c " +
+                "ON c.id = a.id_categorie " +
+                "WHERE a.id_categorie = ? " +
+                "ORDER BY date_publication DESC";
+
+        try (
+                PreparedStatement ps = conn.prepareStatement(sql)) {
+
+            ps.setInt(1, idCategorie);
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+                articles.add(mapArticle(rs));
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return articles;
+    }
+
+    // Méthode utilitaire pour éviter la répétition
+    // Transforme une ligne SQL en objet Article
+    private Article mapArticle(ResultSet rs) throws SQLException {
+        Article article = new Article();
+        Categorie categorie = new Categorie();
+        article.setId(rs.getInt("id"));
+        article.setTitre(rs.getString("titre"));
+        article.setContenu(rs.getString("contenu"));
+        article.setDatePublication(rs.getTimestamp("date_publication"));
+        article.setCategorie(categorie);
+        categorie.setId(rs.getInt("id_categorie"));
+        if (rs.getString("designation") != null) {
+            categorie.setDesignation(rs.getString("designation"));
+        }
+        if (rs.getString("couleur_fond") != null) {
+            categorie.setCouleurFond(rs.getString("couleur_fond"));
+        }
+        if (rs.getString("couleur_texte") != null) {
+            categorie.setCouleurTexte(rs.getString("couleur_texte"));
+        }
+        article.setIdUtilisateur(rs.getInt("id_utilisateur"));
+        return article;
+    }
+}

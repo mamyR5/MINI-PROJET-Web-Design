@@ -1,4 +1,4 @@
-package webdesign.controller;
+package webdesign.controller.backoffice;
 
 import java.io.IOException;
 
