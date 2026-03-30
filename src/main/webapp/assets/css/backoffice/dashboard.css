@@ -189,3 +189,132 @@ color: var(--lm-grey-dark);
     line-height: 1.6;
     color: var(--lm-grey-dark);
 }
+
+
+/* Grille de stats plus aérée */
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 1.5rem;
+    margin-bottom: 3rem;
+}
+
+.stat-card {
+    background: var(--white);
+    padding: 1.5rem;
+    border-radius: 12px;
+    border: 1px solid var(--lm-border);
+    display: flex;
+    align-items: center;
+    gap: 1.2rem;
+}
+
+.stat-icon {
+    width: 48px;
+    height: 48px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.stat-info h3 {
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    color: var(--lm-grey-dark);
+    letter-spacing: 0.05em;
+    margin-bottom: 4px;
+}
+
+.stat-number {
+    font-size: 1.5rem;
+    font-weight: 900;
+    color: var(--lm-black);
+}
+
+/* Section Liste et Tableau */
+.list-section {
+    background: var(--white);
+    border: 1px solid var(--lm-border);
+    border-radius: 12px;
+    padding: 1.5rem;
+}
+
+.list-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.5rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid var(--lm-border);
+}
+
+.list-header h3 {
+    font-weight: 800;
+    text-transform: uppercase;
+    font-size: 0.9rem;
+}
+
+.btn-add-mini {
+    text-decoration: none;
+    font-size: 0.75rem;
+    font-weight: 700;
+    background: var(--lm-black);
+    color: white;
+    padding: 6px 12px;
+    border-radius: 6px;
+    text-transform: uppercase;
+}
+
+/* Style Tableau Institutionnel */
+.article-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.article-table th {
+    text-align: left;
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    color: var(--lm-grey-dark);
+    padding: 12px;
+    border-bottom: 2px solid var(--lm-black);
+}
+
+.article-table td {
+    padding: 14px 12px;
+    border-bottom: 1px solid var(--lm-border);
+    font-size: 0.9rem;
+    color: var(--lm-black);
+}
+
+.title-cell {
+    font-weight: 700;
+    max-width: 300px;
+}
+
+.badge {
+    background: var(--lm-grey-light);
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 0.7rem;
+    font-weight: 600;
+    text-transform: uppercase;
+}
+
+.actions-cell {
+    text-align: right;
+}
+
+.actions-cell button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 1.1rem;
+    margin-left: 10px;
+    transition: opacity 0.2s;
+}
+
+.actions-cell button:hover {
+    opacity: 0.6;
+}

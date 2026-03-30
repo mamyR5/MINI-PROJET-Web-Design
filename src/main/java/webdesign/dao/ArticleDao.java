@@ -41,7 +41,7 @@ public class ArticleDao {
 
     public List<Article> findAll(Connection conn) {
         List<Article> articles = new ArrayList<>();
-        String sql = "SELECT id,titre,slug,date_publication FROM article";
+        String sql = "SELECT a.id,a.titre,a.slug,a.date_publication,c.designation,c.couleur_fond,c.couleur_texte,a.id_categorie FROM article a JOIN categorie c ON c.id = a.id_categorie ORDER BY date_publication DESC";
 
         try (
                 PreparedStatement ps = conn.prepareStatement(sql); ResultSet rs = ps.executeQuery()) {
@@ -52,6 +52,12 @@ public class ArticleDao {
                 article.setTitre(rs.getString("titre"));
                 article.setSlug(rs.getString("slug"));
                 article.setDatePublication(rs.getTimestamp("date_publication"));
+                Categorie categorie = new Categorie();
+                categorie.setId(rs.getInt("id_categorie"));
+                categorie.setDesignation(rs.getString("designation"));
+                categorie.setCouleurFond(rs.getString("couleur_fond"));
+                categorie.setCouleurTexte(rs.getString("couleur_texte"));
+                article.setCategorie(categorie);
                 articles.add(article);
             }
 
