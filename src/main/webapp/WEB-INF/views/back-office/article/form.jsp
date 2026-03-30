@@ -46,7 +46,7 @@
             </header>
             
             <div class="form-container">
-                <form action="${pageContext.request.contextPath}/admin/article/insert" method="post">
+                <form action="${pageContext.request.contextPath}/admin/redaction" method="post">
                     
                     <!-- Titre de l'article -->
                     <div class="form-group">

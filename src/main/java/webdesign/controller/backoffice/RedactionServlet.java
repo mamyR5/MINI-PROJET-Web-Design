@@ -17,12 +17,20 @@ public class RedactionServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException{
 
-        if(LoginServlet.verifySession(request, response)){
-            CategorieDao categorieDAO = new CategorieDao();
-            Connection conn = DatabaseConnection.getConnection();
-            request.setAttribute("categories", categorieDAO.findAll(conn));
-            request.getRequestDispatcher("/WEB-INF/views/back-office/article/form.jsp")
-                .forward(request, response);
+        try(Connection conn = DatabaseConnection.getConnection()) {
+            
+            if(LoginServlet.verifySession(request, response)){
+
+                CategorieDao categorieDAO = new CategorieDao();
+                
+                request.setAttribute("categories", categorieDAO.findAll(conn));
+                request.getRequestDispatcher("/WEB-INF/views/back-office/article/form.jsp")
+                    .forward(request, response);
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            response.sendRedirect(request.getContextPath() + "/admin/home");
         }
         
     }
