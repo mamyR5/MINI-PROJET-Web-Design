@@ -1,5 +1,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ page import="java.util.*" %>
+<%@ page import="webdesign.model.*" %>
+
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -25,6 +27,10 @@
 </head>
 <body>
 
+    <%
+        Utilisateur userSession = (Utilisateur) session.getAttribute("userSession");
+        List<Categorie> categories = (List<Categorie>) request.getAttribute("categories");
+    %>
     <div class="dashboard-layout">
         <jsp:include page="/WEB-INF/fragments/sidebar.jsp" />
 
@@ -53,7 +59,9 @@
                             <label for="id_categorie">Rubrique / Catégorie</label>
                             <select id="id_categorie" name="id_categorie" required>
                                 <option value="">-- Choisir une rubrique --</option>
-                                <option value="1">Catégorie 1</option>
+                                <% for (Categorie cat : categories) { %>
+                                    <option value="<%= cat.getId() %>"><%= cat.getDesignation() %></option>
+                                <% } %>
                             </select>
                         </div>
 
@@ -65,7 +73,7 @@
                     </div>
 
                     <!-- Champs cachés (ID Utilisateur depuis la session) -->
-                    <input type="hidden" name="id_utilisateur" value="<%= session.getAttribute("userId") != null ? session.getAttribute("userId") : 1 %>">
+                    <input type="hidden" name="id_utilisateur" value="<%= userSession.getId() %>">
 
                     <div style="display: flex; gap: 1rem; margin-top: 1rem;">
                         <button type="submit" class="btn-submit">Publier l'article</button>
