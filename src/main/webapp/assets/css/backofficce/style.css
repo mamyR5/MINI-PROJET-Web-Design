@@ -38,7 +38,7 @@
     font-family: 'Inter', sans-serif;
 }
 
-body {
+.login-body {
     background-color: var(--lm-grey-light);
     display: flex;
     align-items: center;

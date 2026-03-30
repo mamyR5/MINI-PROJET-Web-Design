@@ -1,4 +1,4 @@
-package webdesign.entity;
+package webdesign.model;
 
 public class Role {
     private int id;

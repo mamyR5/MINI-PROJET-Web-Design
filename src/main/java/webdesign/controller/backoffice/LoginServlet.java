@@ -3,14 +3,15 @@ package webdesign.controller.backoffice;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.SQLException;
-import webdesign.entity.Role;
+
 import webdesign.dao.backoffice.UtilisateurDAO;
 import webdesign.database.DbConnection;
+import webdesign.model.Role;
+import webdesign.model.Utilisateur;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import webdesign.entity.Utilisateur;
 
 public class LoginServlet extends HttpServlet {
 

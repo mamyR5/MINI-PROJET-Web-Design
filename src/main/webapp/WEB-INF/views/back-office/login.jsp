@@ -7,7 +7,7 @@
         <title>Connexion | News Web Site</title>
         <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/style.css">
     </head>
-    <body>
+    <body class="login-body">
 
         <div class="login-container">
             <div class="header">
@@ -23,12 +23,12 @@
             <form action="${pageContext.request.contextPath}/admin/login" method="post">
                 <div class="form-group">
                     <label for="username">Nom d'utilisateur</label>
-                    <input type="text" id="username" name="username" placeholder="Votre nom" required>
+                    <input type="text" id="username" name="username" placeholder="Votre nom" value="admin@blog.com" required>
                 </div>
 
                 <div class="form-group">
                     <label for="password">Mot de passe</label>
-                    <input type="password" id="password" name="password" placeholder="Saisissez votre code" required>
+                    <input type="password" id="password" name="password" placeholder="Saisissez votre code" value="pass123" required>
                 </div>
 
 

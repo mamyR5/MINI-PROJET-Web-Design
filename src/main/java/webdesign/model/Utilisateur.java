@@ -1,4 +1,4 @@
-package webdesign.entity;
+package webdesign.model;
 
 public class Utilisateur {
     private int id;
@@ -7,7 +7,7 @@ public class Utilisateur {
     private String motDePasse;
 
     public Utilisateur(){
-        
+
     }
     
     public Utilisateur(int id, String nom, String login, String motDePasse) {

@@ -17,7 +17,7 @@
         <main class="main-content">
             <header class="header-main">
                 <div>
-                    <h1>Rédaction</h1>
+                    <h1>Liste des Rédactions</h1>
                 </div>
                 <div class="date-now">
                     <%= new java.text.SimpleDateFormat("dd MMMM yyyy").format(new java.util.Date()) %>

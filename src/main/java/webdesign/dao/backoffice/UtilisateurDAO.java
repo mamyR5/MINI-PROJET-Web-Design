@@ -1,10 +1,11 @@
 package webdesign.dao.backoffice;
 
-import webdesign.entity.*;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import webdesign.database.*;
+import webdesign.model.*;
+
 import java.util.ArrayList;
 import java.util.List;
 
