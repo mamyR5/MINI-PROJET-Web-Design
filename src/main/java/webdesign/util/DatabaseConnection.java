@@ -1,10 +1,10 @@
-package webdesign.database;
+package webdesign.util;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
-public class DbConnection {
+public class DatabaseConnection {
     private static final String URL = "jdbc:postgresql://db:5432/web_design_db";
     private static final String USER = "user_admin";
     private static final String PASSWORD = "password123";

@@ -5,9 +5,9 @@ import java.sql.Connection;
 import java.sql.SQLException;
 
 import webdesign.dao.UtilisateurDao;
-import webdesign.database.DbConnection;
 import webdesign.model.Role;
 import webdesign.model.Utilisateur;
+import webdesign.util.DbConnection;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
