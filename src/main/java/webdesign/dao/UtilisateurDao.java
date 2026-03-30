@@ -3,10 +3,8 @@ package webdesign.dao;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import webdesign.database.*;
 import webdesign.model.*;
-import webdesign.util.DbConnection;
-import webdesign.util.DbConnection;
+import webdesign.util.DatabaseConnection;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,7 +16,7 @@ public class UtilisateurDao {
         String sql = "SELECT id, nom, login , mot_de_passe FROM utilisateur WHERE login = ? AND mot_de_passe = ?";
 
         // Le "try-with-resources" ferme la connexion et le statement automatiquement
-        try (Connection conn = DbConnection.getConnection(); PreparedStatement pstmt = conn.prepareStatement(sql)) {
+        try (Connection conn = DatabaseConnection.getConnection(); PreparedStatement pstmt = conn.prepareStatement(sql)) {
 
             // On remplace les "?" par les vraies valeurs
             pstmt.setString(1, login);
@@ -47,7 +45,7 @@ public class UtilisateurDao {
                 + "JOIN utilisateur_role ur ON r.id = ur.id_role "
                 + "WHERE ur.id_utilisateur = ?";
 
-        try (Connection conn = DbConnection.getConnection(); PreparedStatement pstmt = conn.prepareStatement(sql)) {
+        try (Connection conn = DatabaseConnection.getConnection(); PreparedStatement pstmt = conn.prepareStatement(sql)) {
 
             pstmt.setInt(1, idUtilisateur);
 

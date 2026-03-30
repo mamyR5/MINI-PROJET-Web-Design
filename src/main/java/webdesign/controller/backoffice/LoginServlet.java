@@ -1,13 +1,9 @@
 package webdesign.controller.backoffice;
 
 import java.io.IOException;
-import java.sql.Connection;
-import java.sql.SQLException;
-
 import webdesign.dao.UtilisateurDao;
 import webdesign.model.Role;
 import webdesign.model.Utilisateur;
-import webdesign.util.DbConnection;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;

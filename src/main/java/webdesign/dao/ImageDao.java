@@ -1,8 +1,7 @@
 package webdesign.dao;
 
 import webdesign.model.Image;
-import webdesign.util.DConnection;
-
+import webdesign.util.DatabaseConnection;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
