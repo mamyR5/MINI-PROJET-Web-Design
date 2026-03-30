@@ -1,16 +1,26 @@
 package webdesign.controller.backoffice;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.sql.Connection;
-import webdesign.util.DatabaseConnection;
+
 import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.MultipartConfig;
+import webdesign.util.*;
 import java.sql.SQLException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+import jakarta.servlet.http.Part;
 import webdesign.dao.CategorieDao;
 
+@MultipartConfig
+/*(
+    fileSizeThreshold = 1024 * 1024 * 2, // 2MB
+    maxFileSize = 1024 * 1024 * 10,      // 10MB
+    maxRequestSize = 1024 * 1024 * 50    // 50MB
+)*/
 public class RedactionServlet extends HttpServlet {
 
     @Override
@@ -50,6 +60,21 @@ public class RedactionServlet extends HttpServlet {
         System.out.println("Contenu: " + content);
         System.out.println("idCatégorie: " + idCategorie);
         System.out.println("idUtilisateur: " + idutilisateur);
+        
+        Part filePart = request.getPart("image"); 
+        
+        if (filePart != null && filePart.getSize() > 0) {
+            String fileName = "article_" + System.currentTimeMillis() + ".jpg";
+            String uploadPath = getServletContext().getRealPath("/") + "assets/uploads/" + fileName;
+            
+            try {
+                ImageUtil imageUtil = new ImageUtil();
+                InputStream is = filePart.getInputStream();
+                imageUtil.saveAndResizeImage(is, uploadPath);        
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
 
 
         response.sendRedirect(request.getContextPath() + "/admin/home");
