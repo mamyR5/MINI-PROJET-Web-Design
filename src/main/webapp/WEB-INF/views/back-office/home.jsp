@@ -38,7 +38,7 @@
                             <p class="stat-number">01</p>
                         </div>
                     </div>
-                    
+
                     <div class="stat-card">
                         <div class="stat-icon" style="background: #eff6ff; color: #3b82f6;">
                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><line x1="3" y1="9" x2="21" y2="9"></line><line x1="9" y1="21" x2="9" y2="9"></line></svg>
@@ -56,7 +56,7 @@
                         <h3>Dernières rédactions</h3>
                         <a href="${pageContext.request.contextPath}/admin/redaction" class="btn-add-mini">+ Nouvel article</a>
                     </div>
-                    
+
                     <table class="article-table">
                         <thead>
                             <tr>
@@ -73,7 +73,11 @@
                                 <td class="title-cell"><%= article.getTitre() %></td>
                                 <td><span class="badge"><%= article.getCategorie().getDesignation() %></span></td>
                                 <td>Admin</td>
-                                <td><%= article.getDatePublication() %></td>
+                                <%
+                                    java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat("dd MMMM yyyy 'à' HH:mm", java.util.Locale.FRENCH);
+                                    String dateFormatee = sdf.format(article.getDatePublication());
+                                %>
+                                <td><%= dateFormatee %></td>
                                 <td class="actions-cell">
                                     <button title="Modifier">✎</button>
                                     <button title="Supprimer" style="color: #ef4444;">✕</button>
