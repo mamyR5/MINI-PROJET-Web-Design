@@ -5,7 +5,6 @@ import java.io.InputStream;
 import java.sql.Connection;
 
 import jakarta.servlet.ServletException;
-import jakarta.servlet.annotation.MultipartConfig;
 import webdesign.util.*;
 import java.sql.SQLException;
 import jakarta.servlet.http.HttpServlet;
@@ -15,12 +14,6 @@ import jakarta.servlet.http.HttpSession;
 import jakarta.servlet.http.Part;
 import webdesign.dao.CategorieDao;
 
-@MultipartConfig
-/*(
-    fileSizeThreshold = 1024 * 1024 * 2, // 2MB
-    maxFileSize = 1024 * 1024 * 10,      // 10MB
-    maxRequestSize = 1024 * 1024 * 50    // 50MB
-)*/
 public class RedactionServlet extends HttpServlet {
 
     @Override

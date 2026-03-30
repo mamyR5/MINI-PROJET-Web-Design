@@ -58,7 +58,7 @@
 
                 <div class="form-container">
                     <!-- AJOUT DE enctype="multipart/form-data" -->
-                    <form action="${pageContext.request.contextPath}/admin/redaction" method="post" enctype="multipart/form-data">
+                    <form action="${pageContext.request.contextPath}/redaction" method="post" enctype="multipart/form-data">
 
                         <div class="form-group">
                             <label for="titre">Titre de l'actualité</label>
