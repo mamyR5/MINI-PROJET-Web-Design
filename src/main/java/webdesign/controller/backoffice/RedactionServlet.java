@@ -50,13 +50,33 @@ public class RedactionServlet extends HttpServlet {
         String idCategorie = request.getParameter("id_categorie");
         String idutilisateur = request.getParameter("id_utilisateur");
         String altImage = request.getParameter("alt_image");
+        // 1. Définir le patron (Pattern) pour le titre H1
+        Pattern pattern = Pattern.compile("<h1>(.*?)</h1>", Pattern.CASE_INSENSITIVE);
+        Matcher matcher = pattern.matcher(content);
+        Timestamp currentTimestamp = new Timestamp(System.currentTimeMillis());
 
+        
+
+        String slug = "";
+        if (matcher.find()) {
+            // 2. Récupérer le texte capturé
+            String rawTitle = matcher.group(1); 
+            
+            // 3. Transformer en slug (minuscules, pas d'accents, tirets)
+            slug = rawTitle.toLowerCase()
+                        .replaceAll("[^a-z0-9 ]", "") 
+                        .trim()
+                        .replaceAll("\\s+", "-");
+        }
+        
+        
         System.out.println("Titre: " + title);
         System.out.println("Contenu: " + content);
         System.out.println("idCatégorie: " + idCategorie);
         System.out.println("idUtilisateur: " + idutilisateur);
         System.out.println("Description de l'image: " + altImage);
-        
+        System.out.println("Slug mbola tsy izy: " + slug);
+
         Part filePart = request.getPart("image"); 
         
         if (filePart != null && filePart.getSize() > 0) {
@@ -64,15 +84,27 @@ public class RedactionServlet extends HttpServlet {
             String uploadPath = "/uploads_data/" + fileName;
             System.out.println("Chemin de sauvegarde de l'image: " + uploadPath);
             try (Connection conn = DatabaseConnection.getConnection()){
+                
                 ImageUtil imageUtil = new ImageUtil();
                 InputStream is = filePart.getInputStream();
                 imageUtil.saveAndResizeImage(is, uploadPath);  
+
                 Timestamp currentTimestamp = new Timestamp(System.currentTimeMillis());
+
                 CategorieDao categorieDAO = new CategorieDao();
                 Categorie categorie = categorieDAO.findById(conn,Integer.parseInt(idCategorie));
                 Article article = new Article(0, title, content, currentTimestamp, categorie, Integer.parseInt(idutilisateur));
+
+                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+                String dateFormatee = sdf.format(article.getDatePublication());
+
                 ArticleDao articleDAO = new ArticleDao();
                 int idArticle = articleDAO.save(article, conn);
+
+                slug = "/article/"+idArticle+"-"+slug+"-"+dateFormatee;
+
+                System.out.println("Slug final: " + slug);
+                articleDAO.updateSlug(idArticle, slug, conn);
                 Image image = new Image(0, uploadPath, altImage, idArticle);
                 ImageDao imageDAO = new ImageDao();
                 imageDAO.save(image, conn);

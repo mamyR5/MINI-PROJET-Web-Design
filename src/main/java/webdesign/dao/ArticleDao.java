@@ -10,7 +10,7 @@ import java.util.List;
 public class ArticleDao {
 
     public int save(Article article, Connection con) throws SQLException {
-        String sql = "INSERT INTO article (titre, contenu, id_categorie, id_utilisateur,date_publication) VALUES (?, ?, ?, ?, ?) RETURNING id";
+        String sql = "INSERT INTO article (titre, contenu, id_categorie, id_utilisateur,date_publication,slug) VALUES (?, ?, ?, ?, ?, ?) RETURNING id";
 
         try (PreparedStatement ps = con.prepareStatement(sql)) {
             ps.setString(1, article.getTitre());
@@ -18,6 +18,7 @@ public class ArticleDao {
             ps.setInt(3, article.getCategorie().getId());
             ps.setInt(4, article.getIdUtilisateur());
             ps.setTimestamp(5, article.getDatePublication());
+            ps.setString(6, article.getSlug());
 
             // On utilise executeQuery() car RETURNING id renvoie un ResultSet
             ResultSet rs = ps.executeQuery();
@@ -26,6 +27,16 @@ public class ArticleDao {
             }
         }
         return -1;
+    }
+
+    public void updateSlug(int idArticle, String slug, Connection con) throws SQLException {
+        String sql = "UPDATE article SET slug = ? WHERE id = ?";
+
+        try (PreparedStatement ps = con.prepareStatement(sql)) {
+            ps.setString(1, slug);
+            ps.setInt(2, idArticle);
+            ps.executeUpdate();
+        }
     }
 
     // Récupérer les 10 derniers articles pour l'accueil

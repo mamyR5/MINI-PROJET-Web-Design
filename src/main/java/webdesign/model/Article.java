@@ -6,6 +6,7 @@ public class Article {
     private int id;
     private String titre;
     private String contenu;
+    private String slug;
     private Timestamp datePublication;
     private Categorie categorie;
     private int idUtilisateur;
@@ -14,11 +15,12 @@ public class Article {
     public Article() {}
 
     // Constructeur complet
-    public Article(int id, String titre, String contenu, 
+    public Article(int id, String titre, String contenu,
                    Timestamp datePublication, Categorie categorie, int idUtilisateur) {
         this.id = id;
         this.titre = titre;
         this.contenu = contenu;
+        this.slug = slug;
         this.datePublication = datePublication;
         this.categorie = categorie;
         this.idUtilisateur = idUtilisateur;
@@ -44,4 +46,7 @@ public class Article {
 
     public int getIdUtilisateur() { return idUtilisateur; }
     public void setIdUtilisateur(int idUtilisateur) { this.idUtilisateur = idUtilisateur; }
+
+    public String getSlug() { return slug; }
+    public void setSlug(String slug) { this.slug = slug; }
 }
