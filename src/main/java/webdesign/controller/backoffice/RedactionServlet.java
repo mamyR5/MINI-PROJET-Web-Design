@@ -3,16 +3,17 @@ package webdesign.controller.backoffice;
 import java.io.IOException;
 import java.io.InputStream;
 import java.sql.Connection;
-
 import jakarta.servlet.ServletException;
 import webdesign.util.*;
 import java.sql.SQLException;
+import java.sql.Timestamp;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import jakarta.servlet.http.Part;
-import webdesign.dao.CategorieDao;
+import webdesign.dao.*;
+import webdesign.model.*;
 
 public class RedactionServlet extends HttpServlet {
 
@@ -48,11 +49,13 @@ public class RedactionServlet extends HttpServlet {
         String content = request.getParameter("contenu");
         String idCategorie = request.getParameter("id_categorie");
         String idutilisateur = request.getParameter("id_utilisateur");
+        String altImage = request.getParameter("alt_image");
 
         System.out.println("Titre: " + title);
         System.out.println("Contenu: " + content);
         System.out.println("idCatégorie: " + idCategorie);
         System.out.println("idUtilisateur: " + idutilisateur);
+        System.out.println("Description de l'image: " + altImage);
         
         Part filePart = request.getPart("image"); 
         
@@ -60,18 +63,23 @@ public class RedactionServlet extends HttpServlet {
             String fileName = "article_" + System.currentTimeMillis() + ".jpg";
             String uploadPath = "/uploads_data/" + fileName;
             System.out.println("Chemin de sauvegarde de l'image: " + uploadPath);
-            
-            try {
+            try (Connection conn = DatabaseConnection.getConnection()){
                 ImageUtil imageUtil = new ImageUtil();
                 InputStream is = filePart.getInputStream();
-                imageUtil.saveAndResizeImage(is, uploadPath);        
+                imageUtil.saveAndResizeImage(is, uploadPath);  
+                Timestamp currentTimestamp = new Timestamp(System.currentTimeMillis());
+                CategorieDao categorieDAO = new CategorieDao();
+                Categorie categorie = categorieDAO.findById(conn,Integer.parseInt(idCategorie));
+                Article article = new Article(0, title, content, currentTimestamp, categorie, Integer.parseInt(idutilisateur));
+                ArticleDao articleDAO = new ArticleDao();
+                int idArticle = articleDAO.save(article, conn);
+                Image image = new Image(0, uploadPath, altImage, idArticle);
+                ImageDao imageDAO = new ImageDao();
+                imageDAO.save(image, conn);
             } catch (Exception e) {
                 e.printStackTrace();
             }
         }
-
-        
-
 
         response.sendRedirect(request.getContextPath() + "/admin/home");
     }
