@@ -46,9 +46,9 @@
                         </thead>
                         <tbody>
                             <% for (Article article : articles) { %>
-                            <tr class="clickable-row" onclick="window.location.href='${pageContext.request.contextPath}/admin/article/detail?id=<%= article.getId() %>'">
+                            <tr class="clickable-row" onclick="window.location.href='${pageContext.request.contextPath}<%= article.getSlug() %>'">
                                 <td class="title-cell">
-                                    <a href="${pageContext.request.contextPath}/admin/article/detail?id=<%= article.getId() %>" class="article-link">
+                                    <a href="${pageContext.request.contextPath}<%= article.getSlug() %>" class="article-link">
                                         <%= article.getTitre() %>
                                     </a>
                                 </td>

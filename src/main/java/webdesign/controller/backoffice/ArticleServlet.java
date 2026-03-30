@@ -23,11 +23,24 @@ public class ArticleServlet extends HttpServlet {
         try(Connection conn = DatabaseConnection.getConnection()) {
 
             if(LoginServlet.verifySession(request, response)) {
+                String id = request.getParameter("id");
+                String slug = request.getParameter("slug");
+                String date = request.getParameter("date");
+
                 ArticleDao articleDAO = new ArticleDao();
-                List<Article> articles = articleDAO.findAll(conn);
-                request.setAttribute("articles", articles);
-                request.getRequestDispatcher("/WEB-INF/views/back-office/article/list.jsp")
+                if(id==null || slug==null || date==null) {
+                    
+                    List<Article> articles = articleDAO.findAll(conn);
+                    request.setAttribute("articles", articles);
+                    request.getRequestDispatcher("/WEB-INF/views/back-office/article/list.jsp")
                     .forward(request, response);
+                }else{
+                    Article article = articleDAO.findByIdAndSlug(Integer.parseInt(id), slug , conn);
+                    request.setAttribute("article", article);
+                    request.getRequestDispatcher("/WEB-INF/views/back-office/article/fiche.jsp")
+                    .forward(request, response);
+                }
+                
             }
 
         } catch (Exception e) {

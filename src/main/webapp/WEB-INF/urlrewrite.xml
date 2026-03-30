@@ -10,8 +10,8 @@
     </rule>
 
     <rule>
-        <from>^/test/([0-9]+)-(.*)$</from>
-        <to>/test?id=$1</to>
+        <from>^/article/([0-9]+)-([a-z0-9-]+)-([0-9]{2}-[0-9]{2}-[0-9]{4})$</from>
+        <to>/article?id=$1&amp;slug=$2&amp;date=$3</to>
     </rule>
 
     <rule>
