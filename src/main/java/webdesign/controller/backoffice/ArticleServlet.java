@@ -14,11 +14,12 @@ public class ArticleServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         
-                LoginServlet.verifySession(request, response);
-
-
-        request.getRequestDispatcher("/WEB-INF/views/back-office/article/list.jsp")
+        if(LoginServlet.verifySession(request, response)) {
+             request.getRequestDispatcher("/WEB-INF/views/back-office/article/list.jsp")
                 .forward(request, response);
+        }
+
+       
     }
 
 }

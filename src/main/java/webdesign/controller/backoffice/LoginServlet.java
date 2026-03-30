@@ -54,11 +54,13 @@ public class LoginServlet extends HttpServlet {
         }
     }
 
-    public static void verifySession(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    public static boolean verifySession(HttpServletRequest request, HttpServletResponse response) throws IOException {
         HttpSession session = request.getSession(false);
         if (session == null || session.getAttribute("userSession") == null) {
             response.sendRedirect(request.getContextPath() + "/");
+            return false; // On indique que la vérification a échoué
         }
+        return true; // Tout est OK
     }
 
 }
