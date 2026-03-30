@@ -1,0 +1,2 @@
+ALTER TABLE categorie ADD COLUMN couleur_fond VARCHAR(7) DEFAULT '#E6F1FB';
+ALTER TABLE categorie ADD COLUMN couleur_texte VARCHAR(7) DEFAULT '#0C447C';

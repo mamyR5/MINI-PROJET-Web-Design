@@ -85,6 +85,8 @@ VALUES (
     2, 2
 );
 
+-- ROLES
+INSERT INTO role (designation) VALUES ('administrateur');
 -- IMAGES (une par article)
 INSERT INTO image (fichier, alt, id_article)
 VALUES ('negociations-geneve.jpg', 'Négociations de paix à Genève entre diplomates internationaux', 1);
