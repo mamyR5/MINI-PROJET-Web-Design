@@ -31,7 +31,7 @@
         <main class="main-content">
             <header class="header-main">
                 <div>
-                    <h1>Nouvelle Rédaction</h1>
+                    <h1>Nouvelle  Rédaction</h1>
                     <p>Rédigez un article pour l'édition du jour</p>
                 </div>
                 <div class="date-now">
@@ -53,7 +53,7 @@
                             <label for="id_categorie">Rubrique / Catégorie</label>
                             <select id="id_categorie" name="id_categorie" required>
                                 <option value="">-- Choisir une rubrique --</option>
-                                <option value="1" %>Catégorie 1</option>
+                                <option value="1">Catégorie 1</option>
                             </select>
                         </div>
 

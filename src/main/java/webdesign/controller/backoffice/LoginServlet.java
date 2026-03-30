@@ -8,6 +8,7 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 
 public class LoginServlet extends HttpServlet {
 
@@ -36,6 +37,8 @@ public class LoginServlet extends HttpServlet {
                 System.out.println("Role = " + userRole.getDesignation());
 
                 if (userRole.getDesignation().equals("Admin")) {
+                    HttpSession session = request.getSession();
+                    session.setAttribute("userSession", user);
                     response.sendRedirect(request.getContextPath() + "/admin/home");
                 } else {
                     throw new Exception("Utilisateur non autorisé.");
@@ -48,6 +51,13 @@ public class LoginServlet extends HttpServlet {
         } catch (Exception ex) {
             ex.printStackTrace();
             response.sendRedirect(request.getContextPath() + "/admin/login?error=" + ex.getMessage());
+        }
+    }
+
+    public static void verifySession(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        HttpSession session = request.getSession(false);
+        if (session == null || session.getAttribute("userSession") == null) {
+            response.sendRedirect(request.getContextPath() + "/");
         }
     }
 
