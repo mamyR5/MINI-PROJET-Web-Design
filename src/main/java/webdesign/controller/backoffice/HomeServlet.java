@@ -11,9 +11,11 @@ public class HomeServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-               LoginServlet.verifySession(request, response);
-
-        request.getRequestDispatcher("/WEB-INF/views/back-office/home.jsp")
+        if(LoginServlet.verifySession(request, response)) {
+            request.getRequestDispatcher("/WEB-INF/views/back-office/home.jsp")
                 .forward(request, response);
+        }
+
+        
     }
 }

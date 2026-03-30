@@ -14,11 +14,13 @@ public class RedactionServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        LoginServlet.verifySession(request, response);
+        if(LoginServlet.verifySession(request, response)){
+            request.getRequestDispatcher("/WEB-INF/views/back-office/article/form.jsp")
+                .forward(request, response);
+        }
         
 
-        request.getRequestDispatcher("/WEB-INF/views/back-office/article/form.jsp")
-                .forward(request, response);
+        
     }
 
 
