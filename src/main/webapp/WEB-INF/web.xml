@@ -19,27 +19,27 @@
 
     <servlet>
         <servlet-name>TestServlet</servlet-name>
-        <servlet-class>webdesign.controller.TestServlet</servlet-class>
+        <servlet-class>webdesign.controller.backoffice.TestServlet</servlet-class>
     </servlet>
 
     <servlet>
         <servlet-name>LoginServlet</servlet-name>
-        <servlet-class>webdesign.controller.LoginServlet</servlet-class>
+        <servlet-class>webdesign.controller.backoffice.LoginServlet</servlet-class>
     </servlet>
 
     <servlet>
         <servlet-name>RedactionServlet</servlet-name>
-        <servlet-class>webdesign.controller.RedactionServlet</servlet-class>
+        <servlet-class>webdesign.controller.backoffice.RedactionServlet</servlet-class>
     </servlet>
 
     <servlet>
         <servlet-name>ArticleServlet</servlet-name>
-        <servlet-class>webdesign.controller.ArticleServlet</servlet-class>
+        <servlet-class>webdesign.controller.backoffice.ArticleServlet</servlet-class>
     </servlet>
 
     <servlet>
         <servlet-name>HomeServlet</servlet-name>
-        <servlet-class>webdesign.controller.HomeServlet</servlet-class>
+        <servlet-class>webdesign.controller.backoffice.HomeServlet</servlet-class>
     </servlet>
 
     <servlet-mapping>
