@@ -1,4 +1,4 @@
-package webdesign.dao;
+package webdesign.dao.backoffice;
 
 import webdesign.entity.*;
 import java.sql.Connection;
