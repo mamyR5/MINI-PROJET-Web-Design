@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <title>Dashboard | News Web Site</title>
     <!-- On lie le nouveau CSS du Dashboard -->
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/dashboard.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/backoffice/dashboard.css">
 </head>
 <body>
 

@@ -5,9 +5,9 @@
 <head>
     <meta charset="UTF-8">
     <title>Création d'article | News Web Site</title>
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/style.css">
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/dashboard.css">
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/form-article.css">    
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/backoffice/style.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/backoffice/dashboard.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/backoffice/form-article.css">    
     <script src="https://cdn.tiny.cloud/1/1bw7nmnlty6y5zcrssongzprxzqqnhea3f1zh1k2c9ac1g1o/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>
     
     <script>

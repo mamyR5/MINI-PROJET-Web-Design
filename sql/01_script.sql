@@ -16,7 +16,7 @@ CREATE TABLE utilisateur(
 CREATE TABLE categorie(
    id SERIAL,
    designation VARCHAR(50)  NOT NULL,
-   couleur_text VARCHAR(7)  NOT NULL,
+   couleur_texte VARCHAR(7)  NOT NULL,
    couleur_fond VARCHAR(7)  NOT NULL,
    PRIMARY KEY(id)
 );
