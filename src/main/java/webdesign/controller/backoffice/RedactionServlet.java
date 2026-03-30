@@ -7,6 +7,9 @@ import jakarta.servlet.ServletException;
 import webdesign.util.*;
 import java.sql.SQLException;
 import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -50,10 +53,10 @@ public class RedactionServlet extends HttpServlet {
         String idCategorie = request.getParameter("id_categorie");
         String idutilisateur = request.getParameter("id_utilisateur");
         String altImage = request.getParameter("alt_image");
+        
         // 1. Définir le patron (Pattern) pour le titre H1
         Pattern pattern = Pattern.compile("<h1>(.*?)</h1>", Pattern.CASE_INSENSITIVE);
         Matcher matcher = pattern.matcher(content);
-        Timestamp currentTimestamp = new Timestamp(System.currentTimeMillis());
 
         
 
