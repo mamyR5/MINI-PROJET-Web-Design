@@ -68,6 +68,35 @@ public class ArticleDao {
         return articles;
     }
 
+
+    public Article findByIdAndSlug(int id,String slug, Connection conn) {
+        Article article = null;
+        String sql = "SELECT a.id, titre, contenu, date_publication, "
+                + "id_categorie, id_utilisateur, designation, couleur_fond, couleur_texte "
+                + "FROM article a "
+                + "JOIN categorie c "
+                + "ON c.id = a.id_categorie "
+                + "WHERE a.id = ? AND a.slug = ?";
+
+        try (
+                PreparedStatement ps = conn.prepareStatement(sql)) {
+
+            ps.setInt(1, id);
+            ps.setString(2, slug);
+            ResultSet rs = ps.executeQuery();
+
+            if (rs.next()) {
+                article = mapArticle(rs);
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return article;
+    }
+
+
+
     // Récupérer les 10 derniers articles pour l'accueil
     public List<Article> findLatest(Connection conn) {
         List<Article> articles = new ArrayList<>();

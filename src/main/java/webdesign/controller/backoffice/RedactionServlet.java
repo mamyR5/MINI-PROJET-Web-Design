@@ -47,6 +47,9 @@ public class RedactionServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
+
+        
+
         
         String title = request.getParameter("titre");
         String content = request.getParameter("contenu");

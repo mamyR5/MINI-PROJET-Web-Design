@@ -10,6 +10,11 @@
     </rule>
 
     <rule>
+        <from>^/test/([0-9]+)-(.*)$</from>
+        <to>/test?id=$1</to>
+    </rule>
+
+    <rule>
         <from>^/admin/login$</from>
         <to type="forward">/login</to>
     </rule>
