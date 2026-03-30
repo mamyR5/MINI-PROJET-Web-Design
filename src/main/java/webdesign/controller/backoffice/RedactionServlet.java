@@ -39,13 +39,17 @@ public class RedactionServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+
+        
         String title = request.getParameter("titre");
         String content = request.getParameter("contenu");
         String idCategorie = request.getParameter("id_categorie");
+        String idutilisateur = request.getParameter("id_utilisateur");
 
         System.out.println("Titre: " + title);
         System.out.println("Contenu: " + content);
-        System.out.println("Catégorie: " + idCategorie);
+        System.out.println("idCatégorie: " + idCategorie);
+        System.out.println("idUtilisateur: " + idutilisateur);
 
 
         response.sendRedirect(request.getContextPath() + "/admin/home");
