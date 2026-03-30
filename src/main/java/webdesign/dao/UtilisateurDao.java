@@ -1,4 +1,4 @@
-package webdesign.dao.backoffice;
+package webdesign.dao;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -9,7 +9,7 @@ import webdesign.model.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class UtilisateurDAO {
+public class UtilisateurDao {
 
     public Utilisateur authentifier(String login, String mdp) {
         Utilisateur user = null;

@@ -4,7 +4,7 @@ import java.io.IOException;
 import java.sql.Connection;
 import java.sql.SQLException;
 
-import webdesign.dao.backoffice.UtilisateurDAO;
+import webdesign.dao.UtilisateurDao;
 import webdesign.database.DbConnection;
 import webdesign.model.Role;
 import webdesign.model.Utilisateur;
@@ -30,7 +30,7 @@ public class LoginServlet extends HttpServlet {
 
         try {
 
-            UtilisateurDAO userDAO = new UtilisateurDAO();
+            UtilisateurDao userDAO = new UtilisateurDao();
             Utilisateur user = userDAO.authentifier(username, password);
 
             if (user != null) {
