@@ -1,7 +1,10 @@
 package webdesign.controller;
 
 import java.io.IOException;
+import java.sql.Connection;
+import java.sql.SQLException;
 
+import webdesign.database.DbConnection;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
@@ -19,8 +22,30 @@ public class LoginServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        request.getRequestDispatcher("/WEB-INF/views/back-office/home.jsp")
-                .forward(request, response);
+        String username = request.getParameter("username");
+        String password = request.getParameter("password");
+
+        /*Connection connexion = null;
+
+        try{
+            connexion = DbConnection.getConnection();
+            System.out.println("Mandeha ilay connection.");
+        }catch(Exception ex){
+            ex.printStackTrace();
+        }finally{
+            if(connexion!=null){
+                try {
+                    connexion.close(); 
+                    System.out.println("Connexion fermée avec succès.");
+                } catch (SQLException e) {
+                    e.printStackTrace(); // Erreur lors de la fermeture
+                }
+            }
+        }*/
+
+        System.out.println("username = "+username+" password = "+password);
+
+        response.sendRedirect(request.getContextPath() + "/admin/home");
     }
 
 

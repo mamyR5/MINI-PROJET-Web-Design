@@ -10,6 +10,9 @@ services:
       POSTGRES_DB: web_design_db
     ports:
       - "5433:5432"
+    volumes:
+      # On lie ton dossier local ./sql au dossier d'initialisation de Postgres
+      - ./sql:/docker-entrypoint-initdb.d/
 
   tomcat:
     build: .

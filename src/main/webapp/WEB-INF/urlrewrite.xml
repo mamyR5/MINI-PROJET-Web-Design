@@ -14,4 +14,19 @@
         <to type="forward">/login</to>
     </rule>
 
+    <rule>
+        <from>^/admin/redaction$</from>
+        <to type="forward">/redaction</to>
+    </rule>
+
+    <rule>
+        <from>^/admin/home$</from>
+        <to type="forward">/home</to>
+    </rule>
+
+    <rule>
+        <from>^/admin/article$</from>
+        <to type="forward">/article</to>
+    </rule>
+
 </urlrewrite>
