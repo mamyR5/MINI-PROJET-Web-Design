@@ -196,6 +196,8 @@ public class ArticleDao {
         Categorie categorie = new Categorie();
         article.setId(rs.getInt("id"));
         article.setTitre(rs.getString("titre"));
+        article.setSlug(rs.getString("slug"));
+        article.setUrl(rs.getString("url"));
         article.setContenu(rs.getString("contenu"));
         article.setDatePublication(rs.getTimestamp("date_publication"));
         article.setCategorie(categorie);

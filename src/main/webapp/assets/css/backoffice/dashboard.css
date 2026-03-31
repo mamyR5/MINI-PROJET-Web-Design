@@ -313,21 +313,55 @@ color: var(--lm-grey-dark);
     text-transform: uppercase;
 }
 
+/* Alignement des boutons dans la cellule */
 .actions-cell {
     text-align: right;
+    width: 100px;
 }
 
-.actions-cell button {
-    background: none;
-    border: none;
-    cursor: pointer;
-    font-size: 1.1rem;
-    margin-left: 10px;
-    transition: opacity 0.2s;
+.actions-wrapper {
+    display: flex;
+    justify-content: flex-end;
+    gap: 8px;
 }
 
-.actions-cell button:hover {
-    opacity: 0.6;
+/* Style de base des boutons d'icônes */
+.action-item {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 34px;
+    height: 34px;
+    border-radius: 8px; /* On reste sur l'arrondi du dashboard */
+    transition: all 0.2s ease;
+    text-decoration: none;
+    background-color: transparent;
+    border: 1px solid var(--lm-border);
+}
+
+.action-item svg {
+    width: 18px;
+    height: 18px;
+    stroke: var(--lm-grey-dark); /* Couleur grise de base */
+}
+
+/* Hover spécifique pour chaque bouton */
+.action-item.edit:hover {
+    background-color: var(--lm-black);
+    border-color: var(--lm-black);
+}
+
+.action-item.edit:hover svg {
+    stroke: var(--white);
+}
+
+.action-item.delete:hover {
+    background-color: #fee2e2; /* Rouge très léger */
+    border-color: #ef4444;
+}
+
+.action-item.delete:hover svg {
+    stroke: #ef4444; /* Icône rouge au survol*/
 }
 
 .empty-table-state {
