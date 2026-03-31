@@ -1,0 +1,47 @@
+/* Rend la ligne entière interactive au survol */
+.clickable-row {
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+.clickable-row:hover {
+    background-color: #f8fafc; /* Gris très léger au survol */
+}
+
+/* Style du lien Titre */
+.article-link {
+    text-decoration: none;
+    color: var(--lm-black);
+    font-weight: 700;
+    transition: color 0.2s;
+    display: block; /* Pour que toute la cellule soit cliquable */
+}
+
+.article-link:hover {
+    color: var(--lm-border);
+}
+
+/* Style des boutons d'actions */
+.btn-action {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background: none;
+    border: none;
+    color: var(--lm-grey-dark);
+    margin-left: 8px;
+    cursor: pointer;
+    text-decoration: none;
+    transition: transform 0.2s, color 0.2s;
+}
+
+.btn-action:hover {
+    color: var(--lm-black);
+    transform: scale(1.1);
+}
+
+.date-cell {
+    font-size: 0.8rem;
+    color: var(--lm-grey-dark);
+    font-weight: 500;
+}

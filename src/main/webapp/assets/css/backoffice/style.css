@@ -1,9 +1,26 @@
 @font-face {
     font-family: 'Inter';
-    src: url('../font/Inter-VariableFont_opsz\,wght.ttf') format('truetype');
+    src: url('../../font/Inter-VariableFont_opsz\,wght.ttf') format('truetype');
     font-weight: 100 900;
     font-style: normal;
 }
+
+.error-box {
+    background-color: #fff1f2; /* Rouge très pâle */
+    color: #be123c;           /* Rouge sombre élégant */
+    border: 1px solid #fecdd3;
+    padding: 0.8rem 1rem;
+    border-radius: 12px;      /* Cohérence avec tes inputs */
+    margin-bottom: 1.5rem;
+    font-size: 0.85rem;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    animation: shake 0.4s ease-in-out; /* Petit effet d'alerte */
+}
+
 
 :root {
     --lm-black: #000000;       
@@ -21,7 +38,7 @@
     font-family: 'Inter', sans-serif;
 }
 
-body {
+.login-body {
     background-color: var(--lm-grey-light);
     display: flex;
     align-items: center;
@@ -135,3 +152,4 @@ input:focus {
 .footer-links a:hover {
     text-decoration: underline;
 }
+
