@@ -1,12 +1,14 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ page import="java.util.*" %>
 <%@ page import="webdesign.model.*" %>
-
+<% 
+  String articleId = (String)request.getAttribute("articleId");
+%>
 <!DOCTYPE html>
 <html lang="fr">
     <head>
         <meta charset="UTF-8">
-        <title>Création d'article | News Web Site</title>
+        <title><% if(articleId==null) { %>Création d'article <% } else {%> Modification d'un article <% }%>| News Web Site</title>
         <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/backoffice/style.css">
         <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/backoffice/dashboard.css">
         <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/backoffice/form-article.css">
@@ -55,8 +57,8 @@
             <main class="main-content">
                 <header class="header-main">
                     <div>
-                        <h1>Nouvelle Rédaction</h1>
-                        <p>Rédigez un article pour l'édition du jour</p>
+                        <h1><% if(articleId==null) { %>Nouvelle Rédaction<% } else {%>Modification d'un article<% }%></h1>
+                        <% if(articleId==null) { %><p>Rédigez un article pour l'édition du jour</p><% } else { %> Modifiez votre article<% }%>
                     </div>
                     <div class="date-now">
                         <%= new java.text.SimpleDateFormat("dd MMMM yyyy").format(new java.util.Date()) %>
