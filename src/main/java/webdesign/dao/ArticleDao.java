@@ -17,6 +17,7 @@ public class ArticleDao {
                 "FROM article a " +
                 "JOIN  categorie c " +
                 "ON c.id = a.id_categorie " +
+                "where date_suppression is  null "+
                 "ORDER BY date_publication DESC LIMIT 10";
 
         try (
@@ -68,7 +69,7 @@ public class ArticleDao {
                 "FROM article a " +
                 "JOIN categorie c " +
                 "ON c.id = a.id_categorie " +
-                "WHERE a.id_categorie = ? " +
+                "WHERE a.id_categorie = ? and date_suppression is  null " +
                 "ORDER BY date_publication DESC";
 
         try (
