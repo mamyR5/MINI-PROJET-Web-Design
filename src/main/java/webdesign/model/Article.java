@@ -7,6 +7,7 @@ public class Article {
     private String titre;
     private String contenu;
     private String slug;
+    private String url;
     private Timestamp datePublication;
     private Categorie categorie;
     private int idUtilisateur;
@@ -49,4 +50,7 @@ public class Article {
 
     public String getSlug() { return slug; }
     public void setSlug(String slug) { this.slug = slug; }
+
+    public String getUrl() { return url; }
+    public void setUrl(String url) { this.url = url; }
 }

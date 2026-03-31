@@ -45,6 +45,17 @@
                             </tr>
                         </thead>
                         <tbody>
+                            <%
+                                if (articles == null || articles.isEmpty()) {
+                            %>
+                                <tr>
+                                    <td colspan="5" class="empty-table-state">
+                                        <div class="empty-content">
+                                            <p>Aucune rédaction n'a été enregistrée pour le moment.</p>
+                                        </div>
+                                    </td>
+                                </tr>
+                            <% } else {%>
                             <% for (Article article : articles) { %>
                             <tr class="clickable-row" onclick="window.location.href='${pageContext.request.contextPath}/article/<%= article.getId() %>-<%= article.getSlug() %>-<%= article.getDatePublication() %>'">
                                 <td class="title-cell">
@@ -65,7 +76,8 @@
                                     </a>
                                 </td>
                             </tr>
-                            <% } %>
+                            <% }
+                            } %>
                         </tbody>
                     </table>
                 </div>

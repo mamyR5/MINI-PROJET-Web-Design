@@ -43,6 +43,7 @@ CREATE TABLE article(
    contenu TEXT NOT NULL,
    date_publication TIMESTAMP NOT NULL,
    slug VARCHAR(50) ,
+   url TEXT,
    id_categorie INTEGER NOT NULL,
    id_utilisateur INTEGER NOT NULL,
    PRIMARY KEY(id),

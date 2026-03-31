@@ -29,11 +29,11 @@ public class ArticleDao {
         return -1;
     }
 
-    public void updateSlug(int idArticle, String slug, Connection con) throws SQLException {
-        String sql = "UPDATE article SET slug = ? WHERE id = ?";
+    public void updateUrl(int idArticle, String url, Connection con) throws SQLException {
+        String sql = "UPDATE article SET url = ? WHERE id = ?";
 
         try (PreparedStatement ps = con.prepareStatement(sql)) {
-            ps.setString(1, slug);
+            ps.setString(1, url);
             ps.setInt(2, idArticle);
             ps.executeUpdate();
         }
@@ -41,7 +41,7 @@ public class ArticleDao {
 
     public List<Article> findAll(Connection conn) {
         List<Article> articles = new ArrayList<>();
-        String sql = "SELECT a.id,a.titre,a.slug,a.date_publication,c.designation,c.couleur_fond,c.couleur_texte,a.id_categorie FROM article a JOIN categorie c ON c.id = a.id_categorie ORDER BY date_publication DESC";
+        String sql = "SELECT a.id,a.titre,a.slug,a.url,a.date_publication,c.designation,c.couleur_fond,c.couleur_texte,a.id_categorie FROM article a JOIN categorie c ON c.id = a.id_categorie ORDER BY date_publication DESC";
 
         try (
                 PreparedStatement ps = conn.prepareStatement(sql); ResultSet rs = ps.executeQuery()) {
@@ -51,6 +51,7 @@ public class ArticleDao {
                 article.setId(rs.getInt("id"));
                 article.setTitre(rs.getString("titre"));
                 article.setSlug(rs.getString("slug"));
+                article.setUrl(rs.getString("url"));
                 article.setDatePublication(rs.getTimestamp("date_publication"));
                 Categorie categorie = new Categorie();
                 categorie.setId(rs.getInt("id_categorie"));

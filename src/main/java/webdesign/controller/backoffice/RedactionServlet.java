@@ -47,9 +47,6 @@ public class RedactionServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-
-        
-
         
         String title = request.getParameter("titre");
         String content = request.getParameter("contenu");
@@ -63,6 +60,7 @@ public class RedactionServlet extends HttpServlet {
 
         
 
+        String urlArticle = "";
         String slug = "";
         if (matcher.find()) {
             // 2. Récupérer le texte capturé
@@ -81,7 +79,7 @@ public class RedactionServlet extends HttpServlet {
         System.out.println("idCatégorie: " + idCategorie);
         System.out.println("idUtilisateur: " + idutilisateur);
         System.out.println("Description de l'image: " + altImage);
-        System.out.println("Slug mbola tsy izy: " + slug);
+        System.out.println("Slug: " + slug);
 
         Part filePart = request.getPart("image"); 
         
@@ -104,13 +102,15 @@ public class RedactionServlet extends HttpServlet {
                 SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
                 String dateFormatee = sdf.format(article.getDatePublication());
 
+                article.setSlug(slug);
+
                 ArticleDao articleDAO = new ArticleDao();
                 int idArticle = articleDAO.save(article, conn);
 
-                slug = idArticle+"-"+slug+"-"+dateFormatee;
+                urlArticle = idArticle+"-"+slug+"-"+dateFormatee;
 
-                System.out.println("Slug final: " + slug);
-                articleDAO.updateSlug(idArticle, slug, conn);
+                System.out.println("url article: " + urlArticle);
+                articleDAO.updateUrl(idArticle, urlArticle, conn);
                 Image image = new Image(0, uploadPath, altImage, idArticle);
                 ImageDao imageDAO = new ImageDao();
                 imageDAO.save(image, conn);

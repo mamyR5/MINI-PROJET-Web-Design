@@ -68,28 +68,44 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <% for (Article article : articles) { %>
-                            <tr>
-                                <td class="title-cell"><%= article.getTitre() %></td>
-                                <td><span class="badge"><%= article.getCategorie().getDesignation() %></span></td>
-                                <td>Admin</td>
-                                <%
-                                    java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat("dd MMMM yyyy 'à' HH:mm", java.util.Locale.FRENCH);
-                                    String dateFormatee = sdf.format(article.getDatePublication());
+                            <%
+                                if (articles == null || articles.isEmpty()) {
+                            %>
+                                <tr>
+                                    <td colspan="5" class="empty-table-state">
+                                        <div class="empty-content">
+                                            <p>Aucune rédaction n'a été enregistrée pour le moment.</p>
+                                        </div>
+                                    </td>
+                                </tr>
+                            <% } else {%>             
+                            <% 
+                                for (Article article : articles) {
+                            %>
+                                        <tr class="clickable-row" onclick="window.location.href='${pageContext.request.contextPath}/admin/article/detail?id=<%= article.getId() %>'">
+                                            <td class="title-cell"><%= article.getTitre() %></td>
+                                            <td><span class="badge"><%= article.getCategorie().getDesignation() %></span></td>
+                                            <td>Admin</td>
+                                            <%
+                                                java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat("dd MMM yyyy", java.util.Locale.FRENCH);
+                                                String dateFormatee = sdf.format(article.getDatePublication());
+                                            %>
+                                            <td class="date-cell"><%= dateFormatee %></td>
+                                            <td class="actions-cell">
+                                                <button class="btn-action" title="Modifier">✎</button>
+                                                <button class="btn-action" title="Supprimer" style="color: #ef4444;">✕</button>
+                                            </td>
+                                        </tr>
+                                        <%
+                                        }
+                                    }
                                 %>
-                                <td><%= dateFormatee %></td>
-                                <td class="actions-cell">
-                                    <button title="Modifier">✎</button>
-                                    <button title="Supprimer" style="color: #ef4444;">✕</button>
-                                </td>
-                            </tr>
-                            <% } %>
-                        </tbody>
-                    </table>
-                </div>
+                            </tbody>
+                        </table>
+                    </div>
 
-            </main>
-        </div>
+                </main>
+            </div>
 
-    </body>
-</html>
+        </body>
+    </html>

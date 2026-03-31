@@ -318,3 +318,28 @@ color: var(--lm-grey-dark);
 .actions-cell button:hover {
     opacity: 0.6;
 }
+
+.empty-table-state {
+    text-align: center;
+    padding: 5rem 0 !important; /* On donne de l'espace */
+    background-color: var(--white);
+}
+
+.empty-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    color: var(--lm-grey-dark);
+}
+
+.empty-content p {
+    font-size: 0.8rem;
+    font-weight: 500;
+    margin-bottom: 1rem;
+}
+
+/* On s'assure que la ligne vide ne réagit pas au clic comme les autres */
+tr:has(.empty-table-state):hover {
+    background-color: transparent !important;
+    cursor: default !important;
+}
