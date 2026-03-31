@@ -59,7 +59,6 @@
                             <% for (Article article : articles) { %>
                             <tr class="clickable-row" onclick="window.location.href='${pageContext.request.contextPath}/article/<%=article.getUrl() %>'">
                                 <td class="title-cell">
-                                    <a href="${pageContext.request.contextPath}/article/<%= article.getId() %>-<%= article.getSlug() %>-<%= article.getDatePublication() %>" class="article-link">
                                     <a href="${pageContext.request.contextPath}/article/<%=article.getUrl() %>" class="article-link">
                                         <%= article.getTitre() %>
                                     </a>
@@ -72,7 +71,7 @@
                                 %>
                                 <td class="date-cell"><%= dateFormatee %></td>
                                 <td class="actions-cell">
-                                    <a href="${pageContext.request.contextPath}/admin/article/detail?id=<%= article.getId() %>" class="btn-action" title="Voir la fiche">
+                                    <a href="${pageContext.request.contextPath}/article/<%=article.getUrl() %>" class="btn-action" title="Voir la fiche">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg>
                                     </a>
                                 </td>
