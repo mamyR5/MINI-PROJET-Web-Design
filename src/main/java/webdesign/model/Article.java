@@ -1,6 +1,7 @@
 package webdesign.model;
 
 import java.sql.Timestamp;
+import java.time.LocalDateTime;
 
 public class Article {
     private int id;
@@ -11,12 +12,15 @@ public class Article {
     private Timestamp datePublication;
     private Categorie categorie;
     private int idUtilisateur;
+    private LocalDateTime dateSuppression;
+
+
 
     // Constructeur vide
     public Article() {}
 
     // Constructeur complet
-    public Article(int id, String titre, String contenu,
+    public Article(int id, String titre, String contenu, 
                    Timestamp datePublication, Categorie categorie, int idUtilisateur) {
         this.id = id;
         this.titre = titre;
@@ -47,10 +51,10 @@ public class Article {
 
     public int getIdUtilisateur() { return idUtilisateur; }
     public void setIdUtilisateur(int idUtilisateur) { this.idUtilisateur = idUtilisateur; }
-
-    public String getSlug() { return slug; }
-    public void setSlug(String slug) { this.slug = slug; }
-
-    public String getUrl() { return url; }
-    public void setUrl(String url) { this.url = url; }
+    public String getSlug() {return slug;}
+    public void setSlug(String slug) {this.slug = slug ;}
+    public String getUrl() {return url;}
+    public void setUrl(String url) {this.url = url ;}    
+    public LocalDateTime getDateSuppression() {return dateSuppression;}
+    public void setDateSuppression(LocalDateTime dateSuppression) {this.dateSuppression = dateSuppression; }
 }

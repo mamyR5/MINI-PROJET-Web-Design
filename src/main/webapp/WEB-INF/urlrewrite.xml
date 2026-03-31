@@ -28,6 +28,14 @@
         <from>^/admin/login$</from>
         <to type="forward">/login</to>
     </rule>
+    <rule>
+        <from>^/article/([0-9]+)-(.*)$</from>
+        <to>/article?id=$1</to>
+    </rule>
+    <rule>
+        <from>^/categorie/([0-9]+)-(.*)$</from>
+        <to>/categorie?id=$1</to>
+    </rule>
 
     <rule>
         <from>^/admin/logout$</from>

@@ -8,6 +8,11 @@ import java.util.List;
 
 public class ImageDao {
 
+    // Récupérer toutes les images d'un article
+    public List<Image> findByArticleId(Connection conn, int idArticle) {
+        List<Image> images = new ArrayList<>();
+        String sql = "SELECT id, fichier, alt, id_article " +
+                "FROM image WHERE id_article = ?";
     public void save(Image image, Connection con) throws SQLException {
         String sql = "INSERT INTO image (fichier, alt, id_article) VALUES (?, ?, ?)";
 
@@ -62,8 +67,8 @@ public class ImageDao {
     // Récupérer la première image d'un article (pour la vignette sur l'accueil)
     public Image findFirstByArticleId(Connection conn, int idArticle) {
         Image image = null;
-        String sql = "SELECT id, fichier, alt, id_article "
-                + "FROM image WHERE id_article = ? LIMIT 1";
+        String sql = "SELECT id, fichier, alt, id_article " +
+                "FROM image WHERE id_article = ? LIMIT 1";
 
         try (
                 PreparedStatement ps = conn.prepareStatement(sql)) {

@@ -9,6 +9,31 @@ import java.util.List;
 
 public class ArticleDao {
 
+    // Récupérer les 10 derniers articles pour l'accueil
+    public List<Article> findLatest(Connection conn) {
+        List<Article> articles = new ArrayList<>();
+        String sql = "SELECT a.id, titre, contenu, date_publication, " +
+                "id_categorie, id_utilisateur,designation,couleur_fond,couleur_texte " +
+                "FROM article a " +
+                "JOIN  categorie c " +
+                "ON c.id = a.id_categorie " +
+                "where date_suppression is  null "+
+                "ORDER BY date_publication DESC LIMIT 10";
+
+        try (
+                PreparedStatement ps = conn.prepareStatement(sql);
+                ResultSet rs = ps.executeQuery()) {
+          
+            while (rs.next()) {
+                articles.add(mapArticle(rs));
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+            System.out.println(e.getMessage());
+        }
+        return articles;
+    }
     public int save(Article article, Connection con) throws SQLException {
         String sql = "INSERT INTO article (titre, contenu, id_categorie, id_utilisateur,date_publication,slug) VALUES (?, ?, ?, ?, ?, ?) RETURNING id";
 
@@ -122,30 +147,18 @@ public class ArticleDao {
         return article;
     }
 
-    // Récupérer les 10 derniers articles pour l'accueil
-    public List<Article> findLatest(Connection conn) {
-        List<Article> articles = new ArrayList<>();
-        String sql = "SELECT a.id, titre, contenu, date_publication, "
-                + "id_categorie, id_utilisateur,designation,couleur_fond,couleur_texte "
-                + "FROM article a "
-                + "JOIN  categorie c "
-                + "ON c.id = a.id_categorie "
-                + "ORDER BY date_publication DESC LIMIT 10";
+    
 
-        try (
-                PreparedStatement ps = conn.prepareStatement(sql); ResultSet rs = ps.executeQuery()) {
 
-            while (rs.next()) {
-                articles.add(mapArticle(rs));
-            }
-
-        } catch (SQLException e) {
-            e.printStackTrace();
-            System.out.println(e.getMessage());
-        }
-        return articles;
-    }
-
+    // Récupérer un article par son id (page détail)
+    public Article findById(Connection conn, int id) {
+        Article article = null;
+        String sql = "SELECT a.id, titre, contenu, date_publication, " +
+                "id_categorie, id_utilisateur, designation, couleur_fond, couleur_texte " +
+                "FROM article a " +
+                "JOIN categorie c " +
+                "ON c.id = a.id_categorie " +
+                "WHERE a.id = ?";
     public int countArticlesToday(Connection conn) throws SQLException {
         // On compare la date_publication (sans l'heure) avec la date d'aujourd'hui
         String sql = "SELECT COUNT(*) FROM article WHERE date_publication::date = CURRENT_DATE AND date_suppression IS NULL";
@@ -187,13 +200,13 @@ public class ArticleDao {
     // Récupérer les articles d'une catégorie
     public List<Article> findByCategorie(Connection conn, int idCategorie) {
         List<Article> articles = new ArrayList<>();
-        String sql = "SELECT a.id, titre, contenu, date_publication, "
-                + "id_categorie, id_utilisateur, designation, couleur_fond, couleur_texte "
-                + "FROM article a "
-                + "JOIN categorie c "
-                + "ON c.id = a.id_categorie "
-                + "WHERE a.id_categorie = ? "
-                + "ORDER BY date_publication DESC";
+        String sql = "SELECT a.id, titre, contenu, date_publication, " +
+                "id_categorie, id_utilisateur, designation, couleur_fond, couleur_texte " +
+                "FROM article a " +
+                "JOIN categorie c " +
+                "ON c.id = a.id_categorie " +
+                "WHERE a.id_categorie = ? and date_suppression is  null " +
+                "ORDER BY date_publication DESC";
 
         try (
                 PreparedStatement ps = conn.prepareStatement(sql)) {

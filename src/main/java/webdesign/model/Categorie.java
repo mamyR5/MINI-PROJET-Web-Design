@@ -7,9 +7,10 @@ public class Categorie {
     private String couleurFond;
     private String couleurTexte;
 
+
+
     // Constructeur vide
-    public Categorie() {
-    }
+    public Categorie() {}
 
     // Constructeur complet
     public Categorie(int id, String designation) {
