@@ -65,7 +65,7 @@
         <div class="article-card">
             <div class="article-img">
                 <% if (img != null) { %>
-                <img src="${pageContext.request.contextPath}/assets/uploads/<%= img.getFichier() %>"
+                <img src="<%= img.getFichier() %>"
                      alt="<%= img.getAlt() %>"/>
                 <% } else { %>
                 <div class="img-placeholder"></div>

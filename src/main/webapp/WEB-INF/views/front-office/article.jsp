@@ -53,7 +53,7 @@
         <div class="article-images">
             <% for (Image img : images) { %>
             <figure class="article-figure">
-                <img src="${pageContext.request.contextPath}/assets/uploads/<%= img.getFichier() %>"
+                <img src="<%= img.getFichier() %>"
                      alt="<%= img.getAlt() %>"
                      class="article-img"/>
                 <figcaption class="article-figcaption"><%= img.getAlt() %></figcaption>

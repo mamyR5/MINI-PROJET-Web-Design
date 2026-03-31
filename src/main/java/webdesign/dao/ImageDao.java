@@ -8,11 +8,18 @@ import java.util.List;
 
 public class ImageDao {
 
-    // Récupérer toutes les images d'un article
-    public List<Image> findByArticleId(Connection conn, int idArticle) {
-        List<Image> images = new ArrayList<>();
-        String sql = "SELECT id, fichier, alt, id_article " +
-                "FROM image WHERE id_article = ?";
+
+    public void updateByArticle(Image image, Connection conn) throws SQLException {
+    String sql = "UPDATE image SET fichier = ?, alt = ? WHERE id_article = ?";
+    
+    try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
+        pstmt.setString(1, image.getFichier());
+        pstmt.setString(2, image.getAlt());
+        pstmt.setInt(3, image.getIdArticle());
+
+        pstmt.executeUpdate();
+    }    
+    }
     public void save(Image image, Connection con) throws SQLException {
         String sql = "INSERT INTO image (fichier, alt, id_article) VALUES (?, ?, ?)";
 
@@ -24,20 +31,7 @@ public class ImageDao {
             ps.executeUpdate();
         }
     }
-
-    public void updateByArticle(Image image, Connection conn) throws SQLException {
-    String sql = "UPDATE image SET fichier = ?, alt = ? WHERE id_article = ?";
-    
-    try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
-        pstmt.setString(1, image.getFichier());
-        pstmt.setString(2, image.getAlt());
-        pstmt.setInt(3, image.getIdArticle());
-
-        pstmt.executeUpdate();
-    }
-    }
-
-    // Récupérer toutes les images d'un article
+        // Récupérer toutes les images d'un article
     public List<Image> findByArticleId(Connection conn, int idArticle) {
         List<Image> images = new ArrayList<>();
         String sql = "SELECT id, fichier, alt, id_article "
@@ -63,7 +57,6 @@ public class ImageDao {
         }
         return images;
     }
-
     // Récupérer la première image d'un article (pour la vignette sur l'accueil)
     public Image findFirstByArticleId(Connection conn, int idArticle) {
         Image image = null;
@@ -89,4 +82,5 @@ public class ImageDao {
         }
         return image;
     }
+
 }

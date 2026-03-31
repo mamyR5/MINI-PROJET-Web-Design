@@ -13,17 +13,17 @@ public class ArticleDao {
     public List<Article> findLatest(Connection conn) {
         List<Article> articles = new ArrayList<>();
         String sql = "SELECT a.id, titre, contenu, date_publication, " +
-                "id_categorie, id_utilisateur,designation,couleur_fond,couleur_texte " +
+                "id_categorie, id_utilisateur,designation,couleur_fond,couleur_texte,slug,url " +
                 "FROM article a " +
                 "JOIN  categorie c " +
                 "ON c.id = a.id_categorie " +
-                "where date_suppression is  null "+
+                "where date_suppression is  null " +
                 "ORDER BY date_publication DESC LIMIT 10";
 
         try (
                 PreparedStatement ps = conn.prepareStatement(sql);
                 ResultSet rs = ps.executeQuery()) {
-          
+
             while (rs.next()) {
                 articles.add(mapArticle(rs));
             }
@@ -34,6 +34,7 @@ public class ArticleDao {
         }
         return articles;
     }
+
     public int save(Article article, Connection con) throws SQLException {
         String sql = "INSERT INTO article (titre, contenu, id_categorie, id_utilisateur,date_publication,slug) VALUES (?, ?, ?, ?, ?, ?) RETURNING id";
 
@@ -79,7 +80,8 @@ public class ArticleDao {
         String sql = "SELECT a.id,a.titre,a.slug,a.url,a.date_publication,c.designation,c.couleur_fond,c.couleur_texte,a.id_categorie FROM article a JOIN categorie c ON c.id = a.id_categorie WHERE a.date_suppression IS NULL ORDER BY date_publication DESC";
 
         try (
-                PreparedStatement ps = conn.prepareStatement(sql); ResultSet rs = ps.executeQuery()) {
+                PreparedStatement ps = conn.prepareStatement(sql);
+                ResultSet rs = ps.executeQuery()) {
 
             while (rs.next()) {
                 Article article = new Article();
@@ -128,7 +130,8 @@ public class ArticleDao {
                 + "FROM article a "
                 + "JOIN categorie c "
                 + "ON c.id = a.id_categorie "
-                + "WHERE a.id = ? AND a.slug = ? AND a.date_suppression IS NULL"; ;
+                + "WHERE a.id = ? AND a.slug = ? AND a.date_suppression IS NULL";
+        ;
 
         try (
                 PreparedStatement ps = conn.prepareStatement(sql)) {
@@ -147,81 +150,35 @@ public class ArticleDao {
         return article;
     }
 
-    
-
-
+    // Récupérer un article par son id (page détail)
     // Récupérer un article par son id (page détail)
     public Article findById(Connection conn, int id) {
         Article article = null;
+
         String sql = "SELECT a.id, titre, contenu, date_publication, " +
-                "id_categorie, id_utilisateur, designation, couleur_fond, couleur_texte " +
+                "id_categorie, id_utilisateur, designation, couleur_fond, couleur_texte, slug, url " +
                 "FROM article a " +
-                "JOIN categorie c " +
-                "ON c.id = a.id_categorie " +
+                "JOIN categorie c ON c.id = a.id_categorie " +
                 "WHERE a.id = ?";
-    public int countArticlesToday(Connection conn) throws SQLException {
-        // On compare la date_publication (sans l'heure) avec la date d'aujourd'hui
-        String sql = "SELECT COUNT(*) FROM article WHERE date_publication::date = CURRENT_DATE AND date_suppression IS NULL";
 
-        try (PreparedStatement pstmt = conn.prepareStatement(sql); ResultSet rs = pstmt.executeQuery()) {
-            if (rs.next()) {
-                return rs.getInt(1);
-            }
-        }
-        return 0;
-    }
+        try (PreparedStatement ps = conn.prepareStatement(sql)) {
 
-    // Récupérer un article par son id (page détail)
-    public Article findById(Connection conn, int id) {
-        Article article = null;
-        String sql = "SELECT a.id, titre, contenu, date_publication, "
-                + "id_categorie, id_utilisateur, designation, couleur_fond, couleur_texte "
-                + "FROM article a "
-                + "JOIN categorie c "
-                + "ON c.id = a.id_categorie "
-                + "WHERE a.id = ?";
-
-        try (
-                PreparedStatement ps = conn.prepareStatement(sql)) {
-
+            // 1. Binder le paramètre
             ps.setInt(1, id);
+
+            // 2. Exécuter la requête
             ResultSet rs = ps.executeQuery();
 
+            // 3. Vérifier s'il y a un résultat
             if (rs.next()) {
                 article = mapArticle(rs);
             }
 
         } catch (SQLException e) {
-            e.printStackTrace();
+            e.printStackTrace(); // ou logger propre
         }
+
         return article;
-    }
-
-    // Récupérer les articles d'une catégorie
-    public List<Article> findByCategorie(Connection conn, int idCategorie) {
-        List<Article> articles = new ArrayList<>();
-        String sql = "SELECT a.id, titre, contenu, date_publication, " +
-                "id_categorie, id_utilisateur, designation, couleur_fond, couleur_texte " +
-                "FROM article a " +
-                "JOIN categorie c " +
-                "ON c.id = a.id_categorie " +
-                "WHERE a.id_categorie = ? and date_suppression is  null " +
-                "ORDER BY date_publication DESC";
-
-        try (
-                PreparedStatement ps = conn.prepareStatement(sql)) {
-
-            ps.setInt(1, idCategorie);
-            ResultSet rs = ps.executeQuery();
-
-            while (rs.next()) {
-                articles.add(mapArticle(rs));
-            }
-
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return articles;
     }
 
     // Méthode utilitaire pour éviter la répétition
@@ -248,5 +205,49 @@ public class ArticleDao {
         }
         article.setIdUtilisateur(rs.getInt("id_utilisateur"));
         return article;
+    }
+
+    // Récupérer les articles d'une catégorie
+    public List<Article> findByCategorie(Connection conn, int idCategorie) {
+        List<Article> articles = new ArrayList<>();
+
+        String sql = "SELECT a.id, titre, contenu, date_publication, " +
+                "id_categorie, id_utilisateur, designation, couleur_fond, couleur_texte, slug, url " +
+                "FROM article a " +
+                "JOIN categorie c ON c.id = a.id_categorie " +
+                "WHERE a.id_categorie = ? AND a.date_suppression IS NULL " +
+                "ORDER BY date_publication DESC";
+
+        try (PreparedStatement ps = conn.prepareStatement(sql)) {
+
+            // 1. Binder le paramètre
+            ps.setInt(1, idCategorie);
+
+            // 2. Exécuter
+            ResultSet rs = ps.executeQuery();
+
+            // 3. Parcourir les résultats
+            while (rs.next()) {
+                Article article = mapArticle(rs);
+                articles.add(article);
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace(); // à remplacer par logger si besoin
+        }
+
+        return articles;
+    }
+
+    public int countArticlesToday(Connection conn) throws SQLException {
+        // On compare la date_publication (sans l'heure) avec la date d'aujourd'hui
+        String sql = "SELECT COUNT(*) FROM article WHERE date_publication::date = CURRENT_DATE AND date_suppression IS NULL";
+
+        try (PreparedStatement pstmt = conn.prepareStatement(sql); ResultSet rs = pstmt.executeQuery()) {
+            if (rs.next()) {
+                return rs.getInt(1);
+            }
+        }
+        return 0;
     }
 }
