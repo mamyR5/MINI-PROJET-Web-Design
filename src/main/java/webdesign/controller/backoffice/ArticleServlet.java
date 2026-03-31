@@ -10,6 +10,8 @@ import jakarta.servlet.http.HttpSession;
 import webdesign.util.DatabaseConnection;
 import java.sql.Connection;
 import webdesign.dao.ArticleDao;
+import webdesign.dao.ImageDao;
+import webdesign.model.Image;
 import webdesign.model.Article;
 import java.util.List;
 
@@ -39,9 +41,9 @@ public class ArticleServlet extends HttpServlet {
                     request.getRequestDispatcher("/WEB-INF/views/back-office/article/list.jsp")
                     .forward(request, response);
                 }else{
-                    Article article = articleDAO.findByIdAndSlug(Integer.parseInt(id), slug , conn);
+                    Article article = articleDAO.findByIdAndSlug(conn, Integer.parseInt(id), slug);
                     ImageDao imageDAO = new ImageDao();
-                    List<Image> images = imageDAO.findImagesByArticleId(Integer.parseInt(id), conn);
+                    List<Image> images = imageDAO.findByArticleId(conn,Integer.parseInt(id));
                     request.setAttribute("images", images);
                     request.setAttribute("article", article);
                     request.setAttribute("articleId", id);

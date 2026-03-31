@@ -39,8 +39,7 @@
                     <span class="category-badge"><%= article.getCategorie().getDesignation() %></span>
                     <h1 class="article-title"><%= article.getTitre() %></h1>
                     <div class="article-meta">
-                        <span class="meta-item">📅 Publié le <%= dateStr %></span>
-                        <span class="meta-item">🔗 Slug : <code>/<%= article.getSlug() %></code></span>
+                        <span class="meta-item">Publié le <%= dateStr %></span>
                     </div>
                 </header>
 
@@ -49,7 +48,7 @@
                     <div class="fiche-gallery">
                         <div class="main-image">
                             <!-- On affiche la première image en grand -->
-                            <img src="${pageContext.request.contextPath}/assets/uploads/<%= images.get(0).getUrl() %>" 
+                            <img src="<%= images.get(0).getFichier() %>" 
                                  alt="<%= images.get(0).getAlt() %>">
                             <p class="image-caption"><%= images.get(0).getAlt() %></p>
                         </div>
@@ -57,7 +56,7 @@
                         <% if (images.size() > 1) { %>
                             <div class="thumbnail-grid">
                                 <% for (int i = 1; i < images.size(); i++) { %>
-                                    <img src="${pageContext.request.contextPath}/assets/uploads/<%= images.get(i).getUrl() %>" 
+                                    <img src="<%= images.get(i).getFichier() %>" 
                                          alt="<%= images.get(i).getAlt() %>" class="thumb">
                                 <% } %>
                             </div>

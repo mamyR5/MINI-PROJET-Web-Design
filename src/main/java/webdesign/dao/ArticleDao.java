@@ -70,7 +70,7 @@ public class ArticleDao {
     }
 
 
-    public Article findByIdAndSlug(int id,String slug, Connection conn) {
+    public Article findByIdAndSlug(Connection conn,int id,String slug) {
         Article article = null;
         String sql = "SELECT a.id, titre, contenu, date_publication, "
                 + "id_categorie, id_utilisateur, designation, couleur_fond, couleur_texte "

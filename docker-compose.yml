@@ -19,6 +19,7 @@ services:
     container_name: tomcat_app
     volumes:
       - ./src/main/webapp/assets/uploads:/uploads_data
+      - ./server.xml:/usr/local/tomcat/conf/server.xml
     ports:
       - "8081:8080"
     depends_on:
