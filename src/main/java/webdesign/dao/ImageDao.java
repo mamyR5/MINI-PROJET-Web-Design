@@ -20,6 +20,18 @@ public class ImageDao {
         }
     }
 
+    public void updateByArticle(Image image, Connection conn) throws SQLException {
+    String sql = "UPDATE image SET fichier = ?, alt = ? WHERE id_article = ?";
+    
+    try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
+        pstmt.setString(1, image.getFichier());
+        pstmt.setString(2, image.getAlt());
+        pstmt.setInt(3, image.getIdArticle());
+
+        pstmt.executeUpdate();
+    }
+    }
+
     // Récupérer toutes les images d'un article
     public List<Image> findByArticleId(Connection conn, int idArticle) {
         List<Image> images = new ArrayList<>();

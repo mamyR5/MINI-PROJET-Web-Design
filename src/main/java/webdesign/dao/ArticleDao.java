@@ -69,8 +69,24 @@ public class ArticleDao {
         return articles;
     }
 
+    public void update(Article article, Connection conn) throws SQLException {
+        String sql = "UPDATE article SET titre = ?, contenu = ?, id_categorie = ?, slug = ?, url = ? WHERE id = ?";
 
-    public Article findByIdAndSlug(Connection conn,int id,String slug) {
+        try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setString(1, article.getTitre());
+            pstmt.setString(2, article.getContenu());
+            pstmt.setInt(3, article.getCategorie().getId());
+            pstmt.setString(4, article.getSlug());
+            pstmt.setString(5, article.getUrl());
+
+            // C'est ici qu'on précise quel article modifier
+            pstmt.setInt(6, article.getId());
+
+            pstmt.executeUpdate();
+        }
+    }
+
+    public Article findByIdAndSlug(Connection conn, int id, String slug) {
         Article article = null;
         String sql = "SELECT a.id, titre, contenu, date_publication, "
                 + "id_categorie, id_utilisateur, designation, couleur_fond, couleur_texte "
@@ -95,8 +111,6 @@ public class ArticleDao {
         }
         return article;
     }
-
-
 
     // Récupérer les 10 derniers articles pour l'accueil
     public List<Article> findLatest(Connection conn) {

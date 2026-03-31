@@ -64,7 +64,10 @@ public class RedactionServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        String idArticle = request.getParameter("id_article");
+        try (Connection conn = DatabaseConnection.getConnection()){
+
+        int idArticleSave = 0;
+        String idArticleUpdate = request.getParameter("id_article");
         String title = request.getParameter("titre");
         String content = request.getParameter("contenu");
         String idCategorie = request.getParameter("id_categorie");
@@ -100,42 +103,57 @@ public class RedactionServlet extends HttpServlet {
         System.out.println("Slug: " + slug);
 
         Part filePart = request.getPart("image"); 
+
+        Timestamp currentTimestamp = new Timestamp(System.currentTimeMillis());
+
+        CategorieDao categorieDAO = new CategorieDao();
+        Categorie categorie = categorieDAO.findById(conn,Integer.parseInt(idCategorie));
+        Article article = new Article(0, title, content, currentTimestamp, categorie, Integer.parseInt(idutilisateur));
+
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        String dateFormatee = sdf.format(article.getDatePublication());
+        article.setSlug(slug);
+
+        if(idArticleUpdate != null && !idArticleUpdate.isEmpty()){
+                    article.setId(Integer.parseInt(idArticleUpdate));
+                    ArticleDao articleDAO = new ArticleDao();
+                    articleDAO.update(article, conn);
+                    urlArticle = idArticleUpdate+"-"+slug+"-"+dateFormatee;
+                    articleDAO.updateUrl(Integer.parseInt(idArticleUpdate), urlArticle, conn);
+        }else{
+                          
+            ArticleDao articleDAO = new ArticleDao();
+            idArticleSave = articleDAO.save(article, conn);
+            urlArticle = idArticleSave+"-"+slug+"-"+dateFormatee;
+            System.out.println("url article: " + urlArticle);
+            articleDAO.updateUrl(idArticleSave, urlArticle, conn);
+        }
         
         if (filePart != null && filePart.getSize() > 0) {
+
             String fileName = "article_" + System.currentTimeMillis() + ".jpg";
-            String uploadPath = "/uploads_data/" + fileName;
+            String uploadPath = "/uploads/" + fileName;
             System.out.println("Chemin de sauvegarde de l'image: " + uploadPath);
-            try (Connection conn = DatabaseConnection.getConnection()){
-                
-                ImageUtil imageUtil = new ImageUtil();
-                InputStream is = filePart.getInputStream();
-                imageUtil.saveAndResizeImage(is, uploadPath);  
-
-                Timestamp currentTimestamp = new Timestamp(System.currentTimeMillis());
-
-                CategorieDao categorieDAO = new CategorieDao();
-                Categorie categorie = categorieDAO.findById(conn,Integer.parseInt(idCategorie));
-                Article article = new Article(0, title, content, currentTimestamp, categorie, Integer.parseInt(idutilisateur));
-
-                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-                String dateFormatee = sdf.format(article.getDatePublication());
-
-                article.setSlug(slug);
-
-                ArticleDao articleDAO = new ArticleDao();
-                int idArticle = articleDAO.save(article, conn);
-
-                urlArticle = idArticle+"-"+slug+"-"+dateFormatee;
-
-                System.out.println("url article: " + urlArticle);
-                articleDAO.updateUrl(idArticle, urlArticle, conn);
-                Image image = new Image(0, uploadPath, altImage, idArticle);
-                ImageDao imageDAO = new ImageDao();
+            ImageUtil imageUtil = new ImageUtil();
+            InputStream is = filePart.getInputStream();
+            imageUtil.saveAndResizeImage(is, uploadPath);
+            Image image = null;
+            ImageDao imageDAO = new ImageDao();
+            if(idArticleUpdate != null && !idArticleUpdate.isEmpty()){
+                image = new Image(0, uploadPath, altImage, Integer.parseInt(idArticleUpdate));
+                imageDAO.updateByArticle(image, conn);
+            }else{
+                image = new Image(0, uploadPath, altImage, idArticleSave);
                 imageDAO.save(image, conn);
-            } catch (Exception e) {
-                e.printStackTrace();
             }
+            
+                  
+            
         }
+
+    } catch (Exception e) {
+        e.printStackTrace();
+    }
 
         response.sendRedirect(request.getContextPath() + "/admin/home");
     }
