@@ -107,30 +107,36 @@
                                                 </a>
 
                                                 <!-- Bouton SUPPRIMER -->
-                                                <a href="${pageContext.request.contextPath}/admin/article/delete?id=<%= article.getId() %>"
-                                                    class="action-item delete"
-                                                    title="Supprimer"
-                                                    onclick="event.stopPropagation(); return confirm('Voulez-vous vraiment supprimer cet article ?');">
-                                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                                        <polyline points="3 6 5 6 21 6"></polyline>
-                                                        <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
-                                                        <line x1="10" y1="11" x2="10" y2="17"></line>
-                                                        <line x1="14" y1="11" x2="14" y2="17"></line>
-                                                    </svg>
-                                                </a>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <%
-                                    }
-                                }
-                            %>
-                        </tbody>
-                    </table>
-                </div>
+                                                <form action="${pageContext.request.contextPath}/admin/article/delete-<%=article.getId()%>-<%=article.getSlug()%>" method="post" style="display:inline;"
+                                                onsubmit="return confirm('Voulez-vous vraiment supprimer cet article ?');">
 
-            </main>
+                                                <input type="hidden" name="id" value="<%= article.getId() %>">
+
+                                                <input type="hidden" name="action" value="delete">
+
+                                                <button type="submit" class="action-item delete" title="Supprimer"
+                                                style="background:none; border:none; padding:0; cursor:pointer; color:inherit;">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                                    <polyline points="3 6 5 6 21 6"></polyline>
+                                                    <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
+                                                    <line x1="10" y1="11" x2="10" y2="17"></line>
+                                                    <line x1="14" y1="11" x2="14" y2="17"></line>
+                                                </svg>
+                                            </button>
+                                        </form>
+                                    </div>
+                                </td>
+                            </tr>
+                            <%
+                            }
+                        }
+                    %>
+                </tbody>
+            </table>
         </div>
 
-    </body>
+    </main>
+</div>
+
+</body>
 </html>
