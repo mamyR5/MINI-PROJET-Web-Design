@@ -27,6 +27,10 @@ public class ArticleServlet extends HttpServlet {
                 String slug = request.getParameter("slug");
                 String date = request.getParameter("date");
 
+                System.out.println("id = " + id);
+                System.out.println("slug = " + slug);
+                System.out.println("date = " + date);
+
                 ArticleDao articleDAO = new ArticleDao();
                 if(id==null || slug==null || date==null) {
                     
@@ -37,6 +41,10 @@ public class ArticleServlet extends HttpServlet {
                 }else{
                     Article article = articleDAO.findByIdAndSlug(Integer.parseInt(id), slug , conn);
                     request.setAttribute("article", article);
+                    request.setAttribute("articleId", id);
+                    request.setAttribute("articleSlug", slug);
+                    request.setAttribute("articleDate", date);
+
                     request.getRequestDispatcher("/WEB-INF/views/back-office/article/fiche.jsp")
                     .forward(request, response);
                 }

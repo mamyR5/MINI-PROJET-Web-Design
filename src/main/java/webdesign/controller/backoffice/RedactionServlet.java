@@ -107,7 +107,7 @@ public class RedactionServlet extends HttpServlet {
                 ArticleDao articleDAO = new ArticleDao();
                 int idArticle = articleDAO.save(article, conn);
 
-                slug = "/article/"+idArticle+"-"+slug+"-"+dateFormatee;
+                slug = idArticle+"-"+slug+"-"+dateFormatee;
 
                 System.out.println("Slug final: " + slug);
                 articleDAO.updateSlug(idArticle, slug, conn);
