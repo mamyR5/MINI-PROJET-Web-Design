@@ -88,7 +88,7 @@ public class ArticleDao {
 
     public Article findByIdAndSlug(Connection conn, int id, String slug) {
         Article article = null;
-        String sql = "SELECT a.id, titre, contenu, date_publication, "
+        String sql = "SELECT a.id, titre, contenu, date_publication, slug, url,"
                 + "id_categorie, id_utilisateur, designation, couleur_fond, couleur_texte "
                 + "FROM article a "
                 + "JOIN categorie c "
