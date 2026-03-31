@@ -25,6 +25,11 @@
     </rule>
 
     <rule>
+        <from>^/admin/logout$</from>
+        <to type="forward">/logout</to>
+    </rule>
+
+    <rule>
         <from>^/admin/redaction$</from>
         <to type="forward">/redaction</to>
     </rule>

@@ -105,22 +105,25 @@ body {
 }
 
 .btn-logout {
-    text-decoration: none;
+    /* Propriétés pour transformer le bouton en élément cliquable propre */
+    width: 100%;             /* Prend toute la largeur de la sidebar */
+    cursor: pointer;         /* Curseur main au survol */
+    outline: none;           /* Enlever le contour bleu au clic */
+    
+    /* Tes styles originaux */
     display: flex;
     align-items: center;
     justify-content: center;
     padding: 0.8rem;
     border-radius: 12px;
-    /* Garde la cohérence 12px */
     font-weight: 800;
     font-size: 0.72rem;
     text-transform: uppercase;
     transition: all 0.3s ease;
 
-    /* Design Rouge Soft Style Journal */
+    /* Design Rouge Soft */
     color: var(--lm-red);
     background-color: #fff1f2;
-    /* Fond rouge très léger */
     border: 1.5px solid #fecdd3;
 }
 
@@ -128,6 +131,14 @@ body {
     background-color: var(--lm-grey-dark);
     color: var(--white);
     border-color: var(--lm-black);
+}
+
+/* On s'assure que l'icône dans le bouton suit la couleur du texte */
+.btn-logout svg {
+    stroke: currentColor;
+    width: 20px;
+    height: 20px;
+    margin-right: 12px;
 }
 
 /* --- MAIN CONTENT (Inchangé mais conservé pour ton fichier) --- */
