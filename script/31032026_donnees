@@ -1,0 +1,79 @@
+-- ROLES
+INSERT INTO role (designation) VALUES ('administrateur');
+INSERT INTO role (designation) VALUES ('editeur');
+
+-- CATEGORIES
+INSERT INTO categorie (designation, couleur_fond, couleur_texte) VALUES ('Diplomatie', '#E6F1FB', '#0C447C');
+INSERT INTO categorie (designation, couleur_fond, couleur_texte) VALUES ('Conflits armés', '#FAECE7', '#712B13');
+INSERT INTO categorie (designation, couleur_fond, couleur_texte) VALUES ('Humanitaire', '#EAF3DE', '#27500A');
+INSERT INTO categorie (designation, couleur_fond, couleur_texte) VALUES ('Sanctions économiques', '#FAEEDA', '#633806');
+INSERT INTO categorie (designation, couleur_fond, couleur_texte) VALUES ('Nucléaire', '#FBEAF0', '#4B1528');
+
+-- UTILISATEURS
+INSERT INTO utilisateur (nom, login, mot_de_passe) VALUES ('Admin Principal', 'admin', 'admin123');
+INSERT INTO utilisateur (nom, login, mot_de_passe) VALUES ('Jean Dupont', 'jean.dupont', 'pass123');
+INSERT INTO utilisateur (nom, login, mot_de_passe) VALUES ('Marie Martin', 'marie.martin', 'pass123');
+
+-- UTILISATEUR_ROLE
+INSERT INTO utilisateur_role (id_role, id_utilisateur) VALUES (1, 1);
+INSERT INTO utilisateur_role (id_role, id_utilisateur) VALUES (2, 2);
+INSERT INTO utilisateur_role (id_role, id_utilisateur) VALUES (2, 3);
+
+-- ARTICLES
+-- slug = le h1 avec son texte
+-- url  = l'url réécrite utilisée dans urlrewrite.xml
+INSERT INTO article (titre, contenu, date_publication, date_suppression, slug, url, id_categorie, id_utilisateur) VALUES (
+    'Négociations à Genève : un cessez-le-feu fragile sous pression internationale',
+    '<h2>Contexte des négociations</h2><p>Les représentants de plusieurs nations se sont réunis à Genève pour tenter de trouver un accord durable sur le conflit iranien.</p><h2>Les points de blocage</h2><p>Plusieurs points restent en suspens, notamment la question des zones démilitarisées et le retrait des forces étrangères.</p><h2>Réactions internationales</h2><p>La communauté internationale suit avec attention ces pourparlers.</p>',
+    '2026-03-29 08:00:00',
+    NULL,
+    'Négociations à Genève : un cessez-le-feu fragile sous pression internationale',
+    '1-negociations-a-geneve-cessez-le-feu-fragile-29032026',
+    1, 1
+);
+
+INSERT INTO article (titre, contenu, date_publication, date_suppression, slug, url, id_categorie, id_utilisateur) VALUES (
+    'Crise humanitaire : des milliers de déplacés dans le nord du pays',
+    '<h2>Une situation alarmante</h2><p>Les organisations humanitaires internationales tirent la sonnette d alarme face à l afflux massif de populations déplacées.</p><h2>Manque de ressources</h2><p>Les camps de réfugiés manquent cruellement de nourriture, d eau potable et de soins médicaux.</p><h2>Témoignages</h2><p>De nombreux civils témoignent de conditions de vie difficiles.</p>',
+    '2026-03-28 10:30:00',
+    NULL,
+    'Crise humanitaire : des milliers de déplacés dans le nord du pays',
+    '2-crise-humanitaire-deplaces-nord-pays-28032026',
+    3, 2
+);
+
+INSERT INTO article (titre, contenu, date_publication, date_suppression, slug, url, id_categorie, id_utilisateur) VALUES (
+    'Nouvelles sanctions économiques : impact sur la population iranienne',
+    '<h2>Un nouveau train de sanctions</h2><p>Le Conseil de sécurité de l ONU a adopté un nouveau train de sanctions visant les secteurs clés de l économie iranienne.</p><h2>Conséquences sur le quotidien</h2><p>Les économistes alertent sur les conséquences directes de ces sanctions sur la population civile.</p><h2>Réponse du gouvernement</h2><p>Le gouvernement iranien a dénoncé ces sanctions comme une forme de guerre économique.</p>',
+    '2026-03-27 14:00:00',
+    NULL,
+    'Nouvelles sanctions économiques : impact sur la population iranienne',
+    '3-nouvelles-sanctions-economiques-impact-population-iranienne-27032026',
+    4, 1
+);
+
+INSERT INTO article (titre, contenu, date_publication, date_suppression, slug, url, id_categorie, id_utilisateur) VALUES (
+    'Rapport de l AIEA : situation nucléaire sous haute surveillance',
+    '<h2>Dernières inspections</h2><p>L Agence Internationale de l Énergie Atomique a publié son rapport trimestriel sur les installations nucléaires iraniennes.</p><h2>Enrichissement de l uranium</h2><p>Selon le rapport, le taux d enrichissement de l uranium a atteint des niveaux préoccupants.</p><h2>Position des grandes puissances</h2><p>Les membres permanents du Conseil de sécurité se sont réunis en urgence.</p>',
+    '2026-03-26 09:00:00',
+    NULL,
+    'Rapport de l AIEA : situation nucléaire sous haute surveillance',
+    '4-rapport-aiea-situation-nucleaire-haute-surveillance-26032026',
+    5, 3
+);
+
+INSERT INTO article (titre, contenu, date_publication, date_suppression, slug, url, id_categorie, id_utilisateur) VALUES (
+    'Offensive militaire dans la région de Téhéran : bilan et perspectives',
+    '<h2>Déroulement des opérations</h2><p>Une offensive militaire d envergure a été lancée dans la région de Téhéran. Les forces en présence s affrontent depuis plusieurs jours.</p><h2>Bilan provisoire</h2><p>Le bilan provisoire fait état de plusieurs centaines de morts et de milliers de blessés.</p><h2>Appel au cessez-le-feu</h2><p>Face à l escalade de la violence, plusieurs pays ont lancé un appel urgent au cessez-le-feu.</p>',
+    '2026-03-25 16:00:00',
+    NULL,
+    'Offensive militaire dans la région de Téhéran : bilan et perspectives',
+    '5-offensive-militaire-region-teheran-bilan-perspectives-25032026',
+    2, 2
+);
+-- IMAGES
+INSERT INTO image (fichier, alt, id_article) VALUES ('nego-gen1.jpeg', 'Négociations de paix à Genève entre diplomates internationaux', 1);
+INSERT INTO image (fichier, alt, id_article) VALUES ('crise-hum1.jpg', 'Camp de réfugiés iraniens dans le nord du pays', 2);
+INSERT INTO image (fichier, alt, id_article) VALUES ('sanction_economique1.jpg', 'Marché iranien touché par les sanctions économiques', 3);
+INSERT INTO image (fichier, alt, id_article) VALUES ('iaea-nucleaire1.jpeg', 'Installation nucléaire iranienne sous surveillance de l AIEA', 4);
+INSERT INTO image (fichier, alt, id_article) VALUES ('conflit-arme1.jpg', 'Vue aérienne de la région de Téhéran durant le conflit', 5);

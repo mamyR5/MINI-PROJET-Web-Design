@@ -29,17 +29,20 @@
       FOREIGN KEY(id_utilisateur) REFERENCES utilisateur(id)
    );
 
-   CREATE TABLE article(
-      id SERIAL,
-      titre VARCHAR(1000)  NOT NULL,a
-      contenu TEXT NOT NULL,
-      date_publication TIMESTAMP NOT NULL,
-      id_categorie INTEGER NOT NULL,
-      id_utilisateur INTEGER NOT NULL,
-      PRIMARY KEY(id),
-      FOREIGN KEY(id_categorie) REFERENCES categorie(id),
-      FOREIGN KEY(id_utilisateur) REFERENCES utilisateur(id)
-   );
+    CREATE TABLE article(
+        id SERIAL,
+        titre VARCHAR(1000)  NOT NULL,
+        contenu TEXT NOT NULL,
+        date_publication TIMESTAMP NOT NULL,
+        date_suppression TIMESTAMP,
+        slug VARCHAR(2000)  NOT NULL,
+        url VARCHAR(2000)  NOT NULL,
+        id_categorie INTEGER NOT NULL,
+        id_utilisateur INTEGER NOT NULL,
+        PRIMARY KEY(id),
+        FOREIGN KEY(id_categorie) REFERENCES categorie(id),
+        FOREIGN KEY(id_utilisateur) REFERENCES utilisateur(id)
+    );
 
    CREATE TABLE image(
       id SERIAL,

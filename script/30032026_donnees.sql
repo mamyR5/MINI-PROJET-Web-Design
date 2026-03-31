@@ -89,16 +89,34 @@ VALUES (
 INSERT INTO role (designation) VALUES ('administrateur');
 -- IMAGES (une par article)
 INSERT INTO image (fichier, alt, id_article)
-VALUES ('negociations-geneve.jpg', 'Négociations de paix à Genève entre diplomates internationaux', 1);
+VALUES ('nego-gen1.jpeg', 'Négociations de paix à Genève entre diplomates internationaux', 1);
+INSERT INTO image (fichier, alt, id_article)
+VALUES ('nego-gen2.jpeg', 'Négociations de paix à Genève entre diplomates internationaux', 1);
+INSERT INTO image (fichier, alt, id_article)
+VALUES ('nego-gen3.jpeg', 'Négociations de paix à Genève entre diplomates internationaux', 1);
 
 INSERT INTO image (fichier, alt, id_article)
-VALUES ('crise-humanitaire.jpg', 'Camp de réfugiés iraniens dans le nord du pays', 2);
+VALUES ('crise-hum1.jpg', 'Camp de réfugiés iraniens dans le nord du pays', 2);
+INSERT INTO image (fichier, alt, id_article)
+VALUES ('crise-hum2.jpg', 'Camp de réfugiés iraniens dans le nord du pays', 2);
 
 INSERT INTO image (fichier, alt, id_article)
-VALUES ('sanctions-economiques.jpg', 'Marché iranien touché par les sanctions économiques', 3);
+VALUES ('sanction_economique1.jpg', 'Marché iranien touché par les sanctions économiques', 3);
+INSERT INTO image (fichier, alt, id_article)
+VALUES ('sanction_economique2.jpg', 'Marché iranien touché par les sanctions économiques', 3);
+INSERT INTO image (fichier, alt, id_article)
+VALUES ('sanction_economique3.jpg', 'Marché iranien touché par les sanctions économiques', 3);
 
 INSERT INTO image (fichier, alt, id_article)
-VALUES ('aiea-nucleaire.jpg', 'Installation nucléaire iranienne sous surveillance de l AIEA', 4);
+VALUES ('iaea-nucleaire1.jpeg', 'Installation nucléaire iranienne sous surveillance de l AIEA', 4);
+INSERT INTO image (fichier, alt, id_article)
+VALUES ('iaea-nucleaire2.jpg', 'Installation nucléaire iranienne sous surveillance de l AIEA', 4);
 
 INSERT INTO image (fichier, alt, id_article)
-VALUES ('offensive-teheran.jpg', 'Vue aérienne de la région de Téhéran durant le conflit', 5);
+VALUES ('conflit-arme1.jpg', 'Vue aérienne de la région de Téhéran durant le conflit', 5);
+
+INSERT INTO image (fichier, alt, id_article)
+VALUES ('conflit-arme2.jpg', 'Vue aérienne de la région de Téhéran durant le conflit', 5);
+
+INSERT INTO image (fichier, alt, id_article)
+VALUES ('conflit-arme3.jpg', 'Vue aérienne de la région de Téhéran durant le conflit', 5);
