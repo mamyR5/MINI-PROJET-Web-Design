@@ -22,6 +22,7 @@
     <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/frontoffice/variables.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/frontoffice/categorie.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/frontoffice/navbar.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/frontoffice/main.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/frontoffice/sidebar.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/frontoffice/footer.css">
 </head>

@@ -16,10 +16,11 @@
         SimpleDateFormat sdf = new SimpleDateFormat("dd MMMM yyyy", new java.util.Locale("fr"));
     %>
     <meta name="description" content="<%= article.getTitre() %>">
-    <title><%= article.getTitre() %> — Guerre en Iran</title>
+    <title><%= article.getTitre().replaceAll("<[^>]*>","") %> — Guerre en Iran</title>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/frontoffice/variables.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/frontoffice/article.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/frontoffice/navbar.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/frontoffice/main.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/frontoffice/sidebar.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/frontoffice/footer.css">
 </head>
@@ -74,9 +75,10 @@
         </div>
 
     </div>
-
     <!-- SIDEBAR -->
     <%@ include file="/WEB-INF/views/front-office/sidebar.jsp" %>
+</div>
+
 
 <%@ include file="/WEB-INF/views/front-office/footer.jsp" %>
 </body>

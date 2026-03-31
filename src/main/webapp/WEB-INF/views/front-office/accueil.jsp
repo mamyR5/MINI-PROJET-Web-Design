@@ -15,6 +15,8 @@
     <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/frontoffice/variables.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/frontoffice/accueil.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/frontoffice/navbar.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/frontoffice/main.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/frontoffice/sidebar.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/frontoffice/footer.css">
 </head>
 <body>
@@ -62,7 +64,7 @@
                     </span>
                     <span class="article-date"><%= sdf.format(aLaUne.getDatePublication()) %></span>
                 </div>
-                <div class="article-title"><%= aLaUne.getTitre() %></div>
+                <div class="article-title"><%= aLaUne.getTitre().replaceAll("<[^>]*>", "") %></div>
                 <div class="article-excerpt">
                     <!-- Extrait : on affiche le contenu sans HTML, limité à 200 caractères -->
                     <%= aLaUne.getContenu().replaceAll("<[^>]*>", "").substring(0,
@@ -100,7 +102,7 @@
                     </span>
                     <span class="article-date"><%= sdf.format(art.getDatePublication()) %></span>
                 </div>
-                <div class="article-title"><%= art.getTitre() %></div>
+                <div class="article-title"><%= art.getTitre().replaceAll("<[^>]*>", "") %></div>
                 <div class="article-excerpt">
                     <%= art.getContenu().replaceAll("<[^>]*>", "").substring(0,
                         Math.min(200, art.getContenu().replaceAll("<[^>]*>", "").length())) %>...
