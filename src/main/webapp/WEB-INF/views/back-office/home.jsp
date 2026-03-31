@@ -11,6 +11,7 @@
     <body>
         <%
             List<Article> articles = (List<Article>) request.getAttribute("articles");
+            int articleCount = (int) request.getAttribute("articleCount");
         %>
 
         <div class="dashboard-layout">
@@ -45,7 +46,7 @@
                         </div>
                         <div class="stat-info">
                             <h3>Total des publications</h3>
-                            <p class="stat-number">10</p>
+                            <p class="stat-number"><%= articleCount %></p>
                         </div>
                     </div>
                 </div>
@@ -70,7 +71,7 @@
                         <tbody>
                             <%
                                 if (articles == null || articles.isEmpty()) {
-                            %>
+                                %>
                                 <tr>
                                     <td colspan="5" class="empty-table-state">
                                         <div class="empty-content">
@@ -78,34 +79,48 @@
                                         </div>
                                     </td>
                                 </tr>
-                            <% } else {%>             
-                            <% 
-                                for (Article article : articles) {
-                            %>
-                                        <tr class="clickable-row" onclick="window.location.href='${pageContext.request.contextPath}/admin/article/detail?id=<%= article.getId() %>'">
-                                            <td class="title-cell"><%= article.getTitre() %></td>
-                                            <td><span class="badge"><%= article.getCategorie().getDesignation() %></span></td>
-                                            <td>Admin</td>
-                                            <%
-                                                java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat("dd MMM yyyy", java.util.Locale.FRENCH);
-                                                String dateFormatee = sdf.format(article.getDatePublication());
-                                            %>
-                                            <td class="date-cell"><%= dateFormatee %></td>
-                                            <td class="actions-cell">
-                                                <button class="btn-action" title="Modifier">✎</button>
-                                                <button class="btn-action" title="Supprimer" style="color: #ef4444;">✕</button>
-                                            </td>
-                                        </tr>
+                                <% } else {%>
+                                <%
+                                    for (Article article : articles) {
+                                    %>
+                                    <tr class="clickable-row" onclick="window.location.href='${pageContext.request.contextPath}/article/<%= article.getUrl() %>'">
+                                        <td class="title-cell"><%= article.getTitre() %></td>
+                                        <td><span class="badge"><%= article.getCategorie().getDesignation() %></span></td>
+                                        <td>Admin</td>
                                         <%
-                                        }
+                                            java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat("dd MMM yyyy", java.util.Locale.FRENCH);
+                                            String dateFormatee = sdf.format(article.getDatePublication());
+                                        %>
+                                        <td class="date-cell"><%= dateFormatee %></td>
+                                        <td class="actions-cell">
+                                            <!-- Lien pour Modifier -->
+                                            <a href="${pageContext.request.contextPath}/admin/redaction/<%= article.getId() %>-<%=article.getSlug()%>"
+                                                class="btn-action"
+                                                title="Modifier"
+                                                onclick="event.stopPropagation();"> <!-- Empêche d'ouvrir la fiche article -->
+                                                ✎
+                                            </a>
+
+                                            <!-- Lien pour Supprimer -->
+                                            <a href="${pageContext.request.contextPath}/admin/article/delete?id=<%= article.getId() %>"
+                                                class="btn-action"
+                                                style="color: #ef4444;"
+                                                title="Supprimer"
+                                                onclick="event.stopPropagation(); return confirm('Voulez-vous vraiment supprimer cet article ?');">
+                                                ✕
+                                            </a>
+                                        </td>
+                                    </tr>
+                                    <%
                                     }
-                                %>
-                            </tbody>
-                        </table>
-                    </div>
+                                }
+                            %>
+                        </tbody>
+                    </table>
+                </div>
 
-                </main>
-            </div>
+            </main>
+        </div>
 
-        </body>
-    </html>
+    </body>
+</html>

@@ -5,6 +5,7 @@ import java.io.InputStream;
 import java.sql.Connection;
 import jakarta.servlet.ServletException;
 import webdesign.util.*;
+import java.util.List;
 import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
@@ -28,11 +29,27 @@ public class RedactionServlet extends HttpServlet {
             
             if(LoginServlet.verifySession(request, response)){
 
-                CategorieDao categorieDAO = new CategorieDao();
+
+                String idArticle = request.getParameter("idArticle");
+                String slug = request.getParameter("slug");
                 
-                request.setAttribute("categories", categorieDAO.findAll(conn));
-                request.getRequestDispatcher("/WEB-INF/views/back-office/article/form.jsp")
+                if(idArticle!=null && slug!=null){
+
+                    ArticleDao articleDAO = new ArticleDao();
+                    Article article = articleDAO.findByIdAndSlug(conn, Integer.parseInt(idArticle), slug);
+                    ImageDao imageDAO = new ImageDao();
+                    List<Image> images = imageDAO.findByArticleId(conn,Integer.parseInt(idArticle));
+                    request.setAttribute("images", images);
+                    request.setAttribute("article", article);
+                    request.setAttribute("articleId", idArticle);
+                    request.setAttribute("articleSlug", slug);
+                }
+                  CategorieDao categorieDAO = new CategorieDao();
+                  request.setAttribute("categories", categorieDAO.findAll(conn));
+                  request.getRequestDispatcher("/WEB-INF/views/back-office/article/form.jsp")
                     .forward(request, response);
+                
+                
             }
 
         } catch (Exception e) {
@@ -47,7 +64,7 @@ public class RedactionServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        
+        String idArticle = request.getParameter("id_article");
         String title = request.getParameter("titre");
         String content = request.getParameter("contenu");
         String idCategorie = request.getParameter("id_categorie");
@@ -62,6 +79,7 @@ public class RedactionServlet extends HttpServlet {
 
         String urlArticle = "";
         String slug = "";
+
         if (matcher.find()) {
             // 2. Récupérer le texte capturé
             String rawTitle = matcher.group(1); 

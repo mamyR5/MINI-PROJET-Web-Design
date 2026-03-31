@@ -22,6 +22,7 @@ public class HomeServlet extends HttpServlet {
             ArticleDao articleDAO = new ArticleDao();
             List<Article> articles = articleDAO.findAll(conn);
             request.setAttribute("articles", articles);
+            request.setAttribute("articleCount", articles.size());
             request.getRequestDispatcher("/WEB-INF/views/back-office/home.jsp")
                 .forward(request, response);
         }

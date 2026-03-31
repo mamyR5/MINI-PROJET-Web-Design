@@ -41,6 +41,13 @@
         <%
             Utilisateur userSession = (Utilisateur) session.getAttribute("userSession");
             List<Categorie> categories = (List<Categorie>) request.getAttribute("categories");
+            Article article = null;
+            List<Image> images = null;
+            if(request.getAttribute("article")!= null) {
+                article = (Article) request.getAttribute("article");
+                images = (List<Image>) request.getAttribute("images");
+            }
+            
         %>
         <div class="dashboard-layout">
             <jsp:include page="/WEB-INF/fragments/sidebar.jsp" />
@@ -60,17 +67,21 @@
                     <!-- AJOUT DE enctype="multipart/form-data" -->
                     <form action="${pageContext.request.contextPath}/redaction" method="post" enctype="multipart/form-data">
 
+                        <>%-- Champ caché pour l'ID de l'article (utile pour la modification) --%>
+                        <input type="hidden" name="id_article" value="<%= article != null ? article.getId() : "" %>">
+
                         <div class="form-group">
                             <label for="titre">Titre de l'actualité</label>
-                            <input type="text" id="titre" name="titre" placeholder="Ex: Un nouveau building inauguré..." required>
+                            <input type="text" id="titre" name="titre" placeholder="Ex: Un nouveau building inauguré..."  value="<%= article != null ? article.getTitre() : "" %>" required>
                         </div>
 
                         <div class="form-group">
                             <label for="id_categorie">Rubrique / Catégorie</label>
-                            <select id="id_categorie" name="id_categorie" required>
+                            <select id="id_categorie" name="id_categorie"  required>
                                 <option value="">-- Choisir une rubrique --</option>
-                                <% for (Categorie cat : categories) { %>
-                                <option value="<%= cat.getId() %>"><%= cat.getDesignation() %></option>
+                                <% for (Categorie cat : categories) {
+                                String selected = (article!=null && cat.getId() == article.getCategorie().getId()) ? "selected" : "";%>
+                                <option value="<%= cat.getId() %>"<%= selected %> ><%= cat.getDesignation() %></option>
                                 <% } %>
                             </select>
                         </div>
@@ -82,26 +93,29 @@
                                 <input type="file" id="image" name="image" accept="image/*" onchange="previewImage(event)" required>
                                 <div class="image-upload-design">
                                     <div id="upload-placeholder">
+                                        <% if (images == null || images.isEmpty()) { %>
                                         <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
                                             <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
                                             <circle cx="8.5" cy="8.5" r="1.5"></circle>
                                             <polyline points="21 15 16 10 5 21"></polyline>
                                         </svg>
+
                                         <p>Cliquez pour ajouter une photo de couverture</p>
+                                        <% } %>
                                     </div>
-                                    <img id="image-preview" src="#" alt="Aperçu" style="display:none; max-width: 100%; border-radius: 8px;">
+                                    <img id="image-preview" src="<%= images != null ? images.get(0).getFichier() : "" %>" alt="Aperçu" style="<% if (images == null || images.isEmpty()) { %>display:none;<% } %> max-width: 100%; border-radius: 8px;">
                                 </div>
                             </div>
                         </div>
 
                         <div class="form-group">
                             <label for="alt_image">Description de l'image</label>
-                            <input type="text" id="alt_image" name="alt_image" placeholder="Ex: Façade du nouveau building de la presse sous le soleil" required>
+                            <input type="text" id="alt_image" name="alt_image" value="<%= article != null ? images.get(0).getAlt() : "" %>" placeholder="Ex: Façade du nouveau building de la presse sous le soleil" required>
                         </div>
 
                         <div class="form-group">
                             <label for="contenu">Corps de l'article</label>
-                            <textarea id="contenu" name="contenu" placeholder="Écrivez votre article ici..."></textarea>
+                            <textarea id="contenu" name="contenu" placeholder="Écrivez votre article ici..."><%= article != null ? article.getContenu() : "" %></textarea>
                         </div>
 
                         <input type="hidden" name="id_utilisateur" value="<%= userSession.getId() %>">
