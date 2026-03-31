@@ -84,7 +84,7 @@
                                 <%
                                     for (Article article : articles) {
                                     %>
-                                    <tr class="clickable-row" onclick="window.location.href='${pageContext.request.contextPath}/article/<%= article.getUrl() %>'">
+                                    <tr class="clickable-row" onclick="window.location.href='${pageContext.request.contextPath}/backoffice/admin/article/<%= article.getUrl() %>'">
                                         <td class="title-cell"><%= article.getTitre() %></td>
                                         <td><span class="badge"><%= article.getCategorie().getDesignation() %></span></td>
                                         <td>Admin</td>

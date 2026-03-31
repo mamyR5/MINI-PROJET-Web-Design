@@ -57,9 +57,9 @@
                                 </tr>
                             <% } else {%>
                             <% for (Article article : articles) { %>
-                            <tr class="clickable-row" onclick="window.location.href='${pageContext.request.contextPath}/article/<%=article.getUrl() %>'">
+                            <tr class="clickable-row" onclick="window.location.href='${pageContext.request.contextPath}/backoffice/admin/article/<%=article.getUrl() %>'">
                                 <td class="title-cell">
-                                    <a href="${pageContext.request.contextPath}/article/<%=article.getUrl() %>" class="article-link">
+                                    <a href="${pageContext.request.contextPath}/backoffice/admin/article/<%=article.getUrl() %>" class="article-link">
                                         <%= article.getTitre() %>
                                     </a>
                                 </td>
