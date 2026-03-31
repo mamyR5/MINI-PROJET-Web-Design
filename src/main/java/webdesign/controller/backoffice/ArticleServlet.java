@@ -65,9 +65,33 @@ public class ArticleServlet extends HttpServlet {
     }
 
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        
-    }
+protected void doPost(HttpServletRequest request, HttpServletResponse response) 
+        throws ServletException, IOException {
 
+    String action = request.getParameter("action"); // Pour différencier 'delete' d'autres actions
+    String idParam = request.getParameter("id");
+    String slug = request.getParameter("slug");
+
+    if ("delete".equals(action) && idParam != null) {
+        try (Connection con = DatabaseConnection.getConnection()) {
+            
+            int idArticle = Integer.parseInt(idParam);
+            
+            // On crée le Timestamp de l'instant présent
+            Timestamp now = new Timestamp(System.currentTimeMillis());
+            
+            // Appel de ta fonction dans le DAO
+            ArticleDao articleDAO = new ArticleDao();
+            Article article  = articleDAO.findByIdAndSlug(con, idArticle, slug);
+            articleDAO.updateDateSuppression(article.getId(), now, con);
+            
+            // Redirection vers la liste des articles avec un message de succès
+            response.sendRedirect(request.getContextPath() + "/admin/home");
+            
+        } catch (Exception e) {
+            e.printStackTrace();
+            response.sendRedirect(request.getContextPath() + "/admin/home");
+        }
+    }
+}
 }

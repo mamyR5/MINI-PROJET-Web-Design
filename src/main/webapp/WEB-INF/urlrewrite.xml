@@ -20,6 +20,11 @@
     </rule>
 
     <rule>
+        <from>^/backoffice/admin/article/delete-([0-9]+)-([a-z0-9-]+)$</from>
+        <to type="forward">/admin/article?action=delete&amp;id=$1&amp;slug=$2</to>
+    </rule>
+
+    <rule>
         <from>^/admin/login$</from>
         <to type="forward">/login</to>
     </rule>
