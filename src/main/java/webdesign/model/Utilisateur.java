@@ -6,10 +6,10 @@ public class Utilisateur {
     private String login;
     private String motDePasse;
 
-    // Constructeur vide
-    public Utilisateur() {}
+    public Utilisateur(){
 
-    // Constructeur complet
+    }
+    
     public Utilisateur(int id, String nom, String login, String motDePasse) {
         this.id = id;
         this.nom = nom;
@@ -17,16 +17,35 @@ public class Utilisateur {
         this.motDePasse = motDePasse;
     }
 
-    // Getters et Setters
-    public int getId() { return id; }
-    public void setId(int id) { this.id = id; }
+    public int getId() {
+        return id;
+    }
 
-    public String getNom() { return nom; }
-    public void setNom(String nom) { this.nom = nom; }
+    public void setId(int id) {
+        this.id = id;
+    }
 
-    public String getLogin() { return login; }
-    public void setLogin(String login) { this.login = login; }
+    public String getNom() {
+        return nom;
+    }
 
-    public String getMotDePasse() { return motDePasse; }
-    public void setMotDePasse(String motDePasse) { this.motDePasse = motDePasse; }
+    public void setNom(String nom) {
+        this.nom = nom;
+    }
+
+    public String getLogin() {
+        return login;
+    }
+
+    public void setLogin(String login) {
+        this.login = login;
+    }
+
+    public String getMotDePasse() {
+        return motDePasse;
+    }
+
+    public void setMotDePasse(String motDePasse) {
+        this.motDePasse = motDePasse;
+    }
 }

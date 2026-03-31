@@ -1,7 +1,7 @@
 package webdesign.model;
 
 public class Categorie {
-    
+
     private int id;
     private String designation;
     private String couleurFond;
@@ -19,19 +19,31 @@ public class Categorie {
     }
 
     // Getters et Setters
-    public int getId() { return id; }
-    public void setId(int id) { this.id = id; }
+    public int getId() {
+        return id;
+    }
 
-    public String getDesignation() { return designation; }
-    public void setDesignation(String designation) { this.designation = designation; }
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public String getDesignation() {
+        return designation;
+    }
+
+    public void setDesignation(String designation) {
+        this.designation = designation;
+    }
+
     public String getCouleurFond() {
-       return couleurFond;
+        return couleurFond;
     }
 
     public void setCouleurFond(String couleurFond) {
         this.couleurFond = couleurFond;
     }
-        public String getCouleurTexte() {
+
+    public String getCouleurTexte() {
         return couleurTexte;
     }
 
@@ -39,4 +51,3 @@ public class Categorie {
         this.couleurTexte = couleurTexte;
     }
 }
-

@@ -2,7 +2,6 @@ package webdesign.dao;
 
 import webdesign.model.Image;
 import webdesign.util.DatabaseConnection;
-
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -14,6 +13,35 @@ public class ImageDao {
         List<Image> images = new ArrayList<>();
         String sql = "SELECT id, fichier, alt, id_article " +
                 "FROM image WHERE id_article = ?";
+    public void save(Image image, Connection con) throws SQLException {
+        String sql = "INSERT INTO image (fichier, alt, id_article) VALUES (?, ?, ?)";
+
+        try (PreparedStatement ps = con.prepareStatement(sql)) {
+            ps.setString(1, image.getFichier()); // C'est ici que tu mets ton /uploads_data/nom.jpg
+            ps.setString(2, image.getAlt());     // Obligatoire pour le sujet [cite: 16]
+            ps.setInt(3, image.getIdArticle());
+
+            ps.executeUpdate();
+        }
+    }
+
+    public void updateByArticle(Image image, Connection conn) throws SQLException {
+    String sql = "UPDATE image SET fichier = ?, alt = ? WHERE id_article = ?";
+    
+    try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
+        pstmt.setString(1, image.getFichier());
+        pstmt.setString(2, image.getAlt());
+        pstmt.setInt(3, image.getIdArticle());
+
+        pstmt.executeUpdate();
+    }
+    }
+
+    // Récupérer toutes les images d'un article
+    public List<Image> findByArticleId(Connection conn, int idArticle) {
+        List<Image> images = new ArrayList<>();
+        String sql = "SELECT id, fichier, alt, id_article "
+                + "FROM image WHERE id_article = ?";
 
         try (
                 PreparedStatement ps = conn.prepareStatement(sql)) {

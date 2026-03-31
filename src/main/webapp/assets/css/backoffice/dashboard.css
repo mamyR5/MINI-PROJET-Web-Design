@@ -1,0 +1,390 @@
+@font-face {
+    font-family: 'Inter';
+    src: url('../../font/Inter-VariableFont_opsz\,wght.ttf') format('truetype');
+    font-weight: 100 900;
+    font-style: normal;
+}
+
+:root {
+    --lm-black: #000000;
+    --lm-grey-dark: #333333;
+    --lm-grey-light: #f6f6f6;
+    --lm-border: #e1e1e1;
+    --lm-accent-blue: #0061a1;
+    --white: #ffffff;
+    --lm-red: #e11d48;
+    /* Ajout d'un rouge institutionnel pour la déconnexion */
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Inter', sans-serif;
+}
+
+body {
+    background-color: var(--lm-grey-light);
+    height: 100vh;
+    overflow: hidden;
+}
+
+.dashboard-layout {
+    display: flex;
+    height: 100vh;
+    width: 100%;
+}
+
+/* --- SIDEBAR STYLE --- */
+.sidebar {
+    width: 264px;
+    background: var(--white);
+    border-right: 2px solid var(--lm-border);
+    display: flex;
+    flex-direction: column;
+    padding: 2rem 1.2rem;
+    /* Ajusté pour les icônes */
+}
+
+.sidebar-logo {
+    text-align: center;
+    padding-bottom: 2rem;
+    border-bottom: 1px solid var(--lm-border);
+    margin-bottom: 2rem;
+}
+
+.sidebar-logo h2 {
+    font-weight: 900;
+    text-transform: uppercase;
+    letter-spacing: -1px;
+    font-size: 1.2rem;
+}
+
+.sidebar-nav ul {
+    list-style: none;
+}
+
+.sidebar-nav li {
+    margin-bottom: 0.5rem;
+}
+
+.sidebar-nav a {
+    text-decoration: none;
+    color: var(--lm-grey-dark);
+    font-weight: 700;
+    font-size: 0.78rem;
+    text-transform: uppercase;
+    padding: 0.9rem 1.1rem;
+    display: flex;
+    /* MODIFICATION : Aligne icône et texte */
+    align-items: center;
+    /* Centre verticalement */
+    border-radius: 12px;
+    transition: all 0.2s;
+}
+
+/* Style des icônes à l'intérieur des liens */
+.nav-icon {
+    width: 20px;
+    height: 20px;
+    margin-right: 12px;
+    /* Espace entre l'icône et le texte */
+    stroke-width: 2.5px;
+}
+
+.sidebar-nav a:hover, .sidebar-nav a.active {
+    background-color: var(--lm-black);
+    color: var(--white);
+}
+
+/* --- SECTION DÉCONNEXION --- */
+.sidebar-footer {
+    margin-top: auto;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--lm-border);
+}
+
+.btn-logout {
+    /* Propriétés pour transformer le bouton en élément cliquable propre */
+    width: 100%;             /* Prend toute la largeur de la sidebar */
+    cursor: pointer;         /* Curseur main au survol */
+    outline: none;           /* Enlever le contour bleu au clic */
+    
+    /* Tes styles originaux */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.8rem;
+    border-radius: 12px;
+    font-weight: 800;
+    font-size: 0.72rem;
+    text-transform: uppercase;
+    transition: all 0.3s ease;
+
+    /* Design Rouge Soft */
+    color: var(--lm-red);
+    background-color: #fff1f2;
+    border: 1.5px solid #fecdd3;
+}
+
+.btn-logout:hover {
+    background-color: var(--lm-grey-dark);
+    color: var(--white);
+    border-color: var(--lm-black);
+}
+
+/* On s'assure que l'icône dans le bouton suit la couleur du texte */
+.btn-logout svg {
+    stroke: currentColor;
+    width: 20px;
+    height: 20px;
+    margin-right: 12px;
+}
+
+/* --- MAIN CONTENT (Inchangé mais conservé pour ton fichier) --- */
+.main-content {
+    flex-grow: 1;
+    overflow-y: auto;
+    padding: 3rem;
+}
+
+.header-main {
+    border-bottom: 2px solid var(--lm-black);
+    padding-bottom: 1rem;
+    margin-bottom: 3rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+}
+
+.header-main h1 {
+    font-weight: 900;
+    font-size: 2.2rem;
+    text-transform: uppercase;
+    letter-spacing: -0.05em;
+}
+
+.header-main p {
+font-style: italic;
+color: var(--lm-grey-dark);
+}
+
+/* Grille de cartes */
+.content-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1.5rem;
+}
+
+.card {
+    background: var(--white);
+    border: 1px solid var(--lm-border);
+    padding: 2rem;
+    border-radius: 12px;
+    /* Cohérence login */
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
+}
+
+.card h3 {
+    text-transform: uppercase;
+    font-size: 0.8rem;
+    font-weight: 800;
+    margin-bottom: 1rem;
+    color: var(--lm-black);
+    border-bottom: 1px solid var(--lm-black);
+    display: inline-block;
+}
+
+.card p {
+    font-size: 0.95rem;
+    line-height: 1.6;
+    color: var(--lm-grey-dark);
+}
+
+
+/* Grille de stats plus aérée */
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 1.5rem;
+    margin-bottom: 3rem;
+}
+
+.stat-card {
+    background: var(--white);
+    padding: 1.5rem;
+    border-radius: 12px;
+    border: 1px solid var(--lm-border);
+    display: flex;
+    align-items: center;
+    gap: 1.2rem;
+}
+
+.stat-icon {
+    width: 48px;
+    height: 48px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.stat-info h3 {
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    color: var(--lm-grey-dark);
+    letter-spacing: 0.05em;
+    margin-bottom: 4px;
+}
+
+.stat-number {
+    font-size: 1.5rem;
+    font-weight: 900;
+    color: var(--lm-black);
+}
+
+/* Section Liste et Tableau */
+.list-section {
+    background: var(--white);
+    border: 1px solid var(--lm-border);
+    border-radius: 12px;
+    padding: 1.5rem;
+}
+
+.list-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.5rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid var(--lm-border);
+}
+
+.list-header h3 {
+    font-weight: 800;
+    text-transform: uppercase;
+    font-size: 0.9rem;
+}
+
+.btn-add-mini {
+    text-decoration: none;
+    font-size: 0.75rem;
+    font-weight: 700;
+    background: var(--lm-black);
+    color: white;
+    padding: 6px 12px;
+    border-radius: 6px;
+    text-transform: uppercase;
+}
+
+/* Style Tableau Institutionnel */
+.article-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.article-table th {
+    text-align: left;
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    color: var(--lm-grey-dark);
+    padding: 12px;
+    border-bottom: 2px solid var(--lm-black);
+}
+
+.article-table td {
+    padding: 14px 12px;
+    border-bottom: 1px solid var(--lm-border);
+    font-size: 0.9rem;
+    color: var(--lm-black);
+}
+
+.title-cell {
+    font-weight: 700;
+    max-width: 300px;
+}
+
+.badge {
+    background: var(--lm-grey-light);
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 0.7rem;
+    font-weight: 600;
+    text-transform: uppercase;
+}
+
+/* Alignement des boutons dans la cellule */
+.actions-cell {
+    text-align: right;
+    width: 100px;
+}
+
+.actions-wrapper {
+    display: flex;
+    justify-content: flex-end;
+    gap: 8px;
+}
+
+/* Style de base des boutons d'icônes */
+.action-item {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 34px;
+    height: 34px;
+    border-radius: 8px; /* On reste sur l'arrondi du dashboard */
+    transition: all 0.2s ease;
+    text-decoration: none;
+    background-color: transparent;
+    border: 1px solid var(--lm-border);
+}
+
+.action-item svg {
+    width: 18px;
+    height: 18px;
+    stroke: var(--lm-grey-dark); /* Couleur grise de base */
+}
+
+/* Hover spécifique pour chaque bouton */
+.action-item.edit:hover {
+    background-color: var(--lm-black);
+    border-color: var(--lm-black);
+}
+
+.action-item.edit:hover svg {
+    stroke: var(--white);
+}
+
+.action-item.delete:hover {
+    background-color: #fee2e2; /* Rouge très léger */
+    border-color: #ef4444;
+}
+
+.action-item.delete:hover svg {
+    stroke: #ef4444; /* Icône rouge au survol*/
+}
+
+.empty-table-state {
+    text-align: center;
+    padding: 5rem 0 !important; /* On donne de l'espace */
+    background-color: var(--white);
+}
+
+.empty-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    color: var(--lm-grey-dark);
+}
+
+.empty-content p {
+    font-size: 0.8rem;
+    font-weight: 500;
+    margin-bottom: 1rem;
+}
+
+/* On s'assure que la ligne vide ne réagit pas au clic comme les autres */
+tr:has(.empty-table-state):hover {
+    background-color: transparent !important;
+    cursor: default !important;
+}

@@ -1,0 +1,99 @@
+/* --- FORMULAIRE D'INSERTION D'ARTICLE --- */
+.form-container {
+    background: var(--white);
+    padding: 2rem;
+    border: 1px solid var(--lm-border);
+    border-radius: 12px;
+    max-width: 900px; /* Plus large pour l'éditeur */
+    margin: 0 auto;
+}
+
+.form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+    margin-bottom: 1.5rem;
+}
+
+.form-group {
+    margin-bottom: 1.5rem;
+    display: flex;
+    flex-direction: column;
+}
+
+.full-width {
+    grid-column: span 2;
+}
+
+select {
+    width: 100%;
+    padding: 0.8rem;
+    border: 1px solid var(--lm-border);
+    border-radius: 12px;
+    background-color: var(--white);
+    font-size: 14px;
+    outline: none;
+    cursor: pointer;
+}
+
+select:focus {
+    border-color: var(--lm-black);
+}
+
+/* Style spécifique pour TinyMCE pour garder les bords arrondis */
+.tox-tinymce {
+    border-radius: 12px !important;
+    border: 1px solid var(--lm-border) !important;
+}
+
+/* Cache l'input par défaut */
+.image-upload-wrapper input[type="file"] {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    cursor: pointer;
+    z-index: 10;
+}
+
+.image-upload-wrapper {
+    position: relative;
+    width: 100%;
+    padding:1.6rem;
+    min-height: 150px;
+    border: 2px dashed var(--lm-border);
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--lm-grey-light);
+    transition: all 0.3s ease;
+    overflow: hidden;
+}
+
+.image-upload-wrapper:hover {
+    border-color: var(--lm-black);
+    background-color: #fff;
+}
+
+.image-upload-design {
+    text-align: center;
+    color: var(--lm-grey-dark);
+}
+
+.image-upload-design svg {
+    margin-bottom: 10px;
+    color: var(--lm-black);
+}
+
+.image-upload-design p {
+    font-size: 0.8rem;
+    font-weight: 600;
+    text-transform: uppercase;
+}
+
+#image-preview {
+    max-height: 250px;
+    width: auto;
+    object-fit: cover;
+}

@@ -8,7 +8,6 @@ public class Article {
     private String titre;
     private String contenu;
     private String slug;
- 
     private String url;
     private Timestamp datePublication;
     private Categorie categorie;
@@ -26,6 +25,7 @@ public class Article {
         this.id = id;
         this.titre = titre;
         this.contenu = contenu;
+        this.slug = slug;
         this.datePublication = datePublication;
         this.categorie = categorie;
         this.idUtilisateur = idUtilisateur;

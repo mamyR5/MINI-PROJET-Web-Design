@@ -1,11 +1,14 @@
 package webdesign.controller.backoffice;
 
 import java.io.IOException;
-
+import webdesign.dao.UtilisateurDao;
+import webdesign.model.Role;
+import webdesign.model.Utilisateur;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 
 public class LoginServlet extends HttpServlet {
 
@@ -19,9 +22,45 @@ public class LoginServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        request.getRequestDispatcher("/WEB-INF/views/back-office/home.jsp")
-                .forward(request, response);
+        String username = request.getParameter("username");
+        String password = request.getParameter("password");
+
+        try {
+
+            UtilisateurDao userDAO = new UtilisateurDao();
+            Utilisateur user = userDAO.authentifier(username, password);
+
+            if (user != null) {
+                System.out.println("username = " + username + " password = " + password);
+                Role userRole = userDAO.getRolesByUtilisateurId(user.getId()).get(0);
+
+                System.out.println("Role = " + userRole.getDesignation());
+
+                if (userRole.getDesignation().equals("Admin")) {
+                    HttpSession session = request.getSession();
+                    session.setAttribute("userSession", user);
+                    response.sendRedirect(request.getContextPath() + "/admin/home");
+                } else {
+                    throw new Exception("Utilisateur non autorisé.");
+                }
+
+            } else {
+                throw new Exception("Utilisateur non authentifié.");
+            }
+
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            response.sendRedirect(request.getContextPath() + "/admin/login?error=" + ex.getMessage());
+        }
     }
 
+    public static boolean verifySession(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        HttpSession session = request.getSession(false);
+        if (session == null || session.getAttribute("userSession") == null) {
+            response.sendRedirect(request.getContextPath() + "/");
+            return false; // On indique que la vérification a échoué
+        }
+        return true; // Tout est OK
+    }
 
 }
