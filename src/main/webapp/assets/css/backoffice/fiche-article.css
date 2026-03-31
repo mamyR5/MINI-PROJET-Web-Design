@@ -1,0 +1,146 @@
+/* Container de la fiche style "Papier" */
+.fiche-container {
+    background: var(--white);
+    border: 1px solid var(--lm-border);
+    border-radius: 12px;
+    padding: 3rem;
+    max-width: 900px;
+    margin: 0 auto;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.02);
+}
+
+/* En-tête */
+.fiche-header {
+    border-bottom: 3px solid var(--lm-black);
+    padding-bottom: 2rem;
+    margin-bottom: 2rem;
+}
+
+.category-badge {
+    background: var(--lm-black);
+    color: white;
+    padding: 4px 12px;
+    font-size: 0.7rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    border-radius: 4px;
+    display: inline-block;
+    margin-bottom: 1rem;
+}
+
+.article-title {
+    font-size: 2.8rem;
+    font-weight: 900;
+    line-height: 1.1;
+    letter-spacing: -0.04em;
+    color: var(--lm-black);
+    margin-bottom: 1.5rem;
+}
+
+.article-meta {
+    display: flex;
+    gap: 2rem;
+    color: var(--lm-grey-dark);
+    font-size: 0.85rem;
+    font-weight: 500;
+}
+
+/* Galerie */
+.fiche-gallery {
+    margin-bottom: 3rem;
+}
+
+.main-image img {
+    width: 100%;
+    height: 450px;
+    object-fit: cover;
+    border-radius: 12px;
+    border: 1px solid var(--lm-border);
+}
+
+.image-caption {
+    font-style: italic;
+    font-size: 0.85rem;
+    color: var(--lm-grey-dark);
+    margin-top: 10px;
+    text-align: center;
+}
+
+.thumbnail-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 10px;
+    margin-top: 10px;
+}
+
+.thumb {
+    width: 100%;
+    height: 80px;
+    object-fit: cover;
+    border-radius: 8px;
+    cursor: pointer;
+    border: 1px solid var(--lm-border);
+}
+
+/* Corps du texte */
+.fiche-content {
+    line-height: 1.8;
+    font-size: 1.1rem;
+    color: #1a1a1a;
+}
+
+.content-label {
+    font-weight: 800;
+    text-transform: uppercase;
+    font-size: 0.75rem;
+    color: var(--lm-grey-dark);
+    border-bottom: 1px solid var(--lm-border);
+    padding-bottom: 8px;
+    margin-bottom: 1.5rem;
+}
+
+/* Actions du haut */
+.top-actions {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+    max-width: 900px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.btn-back {
+    text-decoration: none;
+    color: var(--lm-black);
+    font-weight: 800;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    text-transform: uppercase;
+    font-size: 0.8rem;
+}
+
+.btn-action-outline {
+    background: transparent;
+    border: 2px solid var(--lm-black);
+    padding: 8px 20px;
+    border-radius: 8px;
+    font-weight: 800;
+    cursor: pointer;
+    text-transform: uppercase;
+    font-size: 0.75rem;
+}
+
+.btn-action-danger {
+    background: #ef4444;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 8px;
+    font-weight: 800;
+    cursor: pointer;
+    text-transform: uppercase;
+    font-size: 0.75rem;
+    margin-left: 10px;
+}

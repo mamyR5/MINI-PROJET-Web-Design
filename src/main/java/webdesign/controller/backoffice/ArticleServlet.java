@@ -40,6 +40,9 @@ public class ArticleServlet extends HttpServlet {
                     .forward(request, response);
                 }else{
                     Article article = articleDAO.findByIdAndSlug(Integer.parseInt(id), slug , conn);
+                    ImageDao imageDAO = new ImageDao();
+                    List<Image> images = imageDAO.findImagesByArticleId(Integer.parseInt(id), conn);
+                    request.setAttribute("images", images);
                     request.setAttribute("article", article);
                     request.setAttribute("articleId", id);
                     request.setAttribute("articleSlug", slug);
