@@ -6,7 +6,7 @@
 
 .sidebar-block {
     background: var(--color-background-primary);
-    border: 0.5px solid var(--color-border-tertiary);
+    border: 1.0px solid var(--color-border-tertiary);
     border-radius: var(--border-radius-lg);
     padding: 14px 16px;
 }

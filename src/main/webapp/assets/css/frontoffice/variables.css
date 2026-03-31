@@ -11,3 +11,10 @@
     --border-radius-lg: 12px;
     --font-sans: 'Inter', Arial, sans-serif;
 }
+
+/* dans variables.css ou un fichier global */
+html, body {
+    min-height: 100vh;
+    display: flex;          /* ← nécessaire pour que flex:1 fonctionne */
+    flex-direction: column;
+}
