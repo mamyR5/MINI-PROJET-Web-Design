@@ -132,7 +132,7 @@ public class RedactionServlet extends HttpServlet {
         if (filePart != null && filePart.getSize() > 0) {
 
             String fileName = "article_" + System.currentTimeMillis() + ".jpg";
-            String uploadPath = "/uploads/" + fileName;
+            String uploadPath = "/uploads_data/" + fileName;
             System.out.println("Chemin de sauvegarde de l'image: " + uploadPath);
             ImageUtil imageUtil = new ImageUtil();
             InputStream is = filePart.getInputStream();
@@ -140,10 +140,10 @@ public class RedactionServlet extends HttpServlet {
             Image image = null;
             ImageDao imageDAO = new ImageDao();
             if(idArticleUpdate != null && !idArticleUpdate.isEmpty()){
-                image = new Image(0, uploadPath, altImage, Integer.parseInt(idArticleUpdate));
+                image = new Image(0, "/uploads/"+fileName, altImage, Integer.parseInt(idArticleUpdate));
                 imageDAO.updateByArticle(image, conn);
             }else{
-                image = new Image(0, uploadPath, altImage, idArticleSave);
+                image = new Image(0, "/uploads/"+fileName, altImage, idArticleSave);
                 imageDAO.save(image, conn);
             }
             

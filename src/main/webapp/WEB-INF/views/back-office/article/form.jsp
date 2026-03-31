@@ -67,7 +67,6 @@
                     <!-- AJOUT DE enctype="multipart/form-data" -->
                     <form action="${pageContext.request.contextPath}/redaction" method="post" enctype="multipart/form-data">
 
-                        <>%-- Champ caché pour l'ID de l'article (utile pour la modification) --%>
                         <input type="hidden" name="id_article" value="<%= article != null ? article.getId() : "" %>">
 
                         <div class="form-group">
