@@ -20,84 +20,55 @@ import java.sql.Timestamp;
 public class ArticleServlet extends HttpServlet {
     
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-
-        try(Connection conn = DatabaseConnection.getConnection()) {
-
-            if(LoginServlet.verifySession(request, response)) {
-                String id = request.getParameter("id");
-                String slug = request.getParameter("slug");
-                String date = request.getParameter("date");
-                String action = request.getParameter("action");
-
-                System.out.println("id = " + id);
-                System.out.println("slug = " + slug);
-                System.out.println("date = " + date);
-
-                ArticleDao articleDAO = new ArticleDao();
-                if(id==null || slug==null || date==null) {
-                    
-                    List<Article> articles = articleDAO.findAll(conn);
-                    request.setAttribute("articles", articles);
-                    request.getRequestDispatcher("/WEB-INF/views/back-office/article/list.jsp")
-                    .forward(request, response);
-                }else if(action ==null && id!=null && slug!=null && date!=null){
-                    Article article = articleDAO.findByIdAndSlug(conn, Integer.parseInt(id), slug);
-                    ImageDao imageDAO = new ImageDao();
-                    List<Image> images = imageDAO.findByArticleId(conn,Integer.parseInt(id));
-                    request.setAttribute("images", images);
-                    request.setAttribute("article", article);
-                    request.setAttribute("articleId", id);
-                    request.setAttribute("articleSlug", slug);
-                    request.setAttribute("articleDate", date);
-
-                    request.getRequestDispatcher("/WEB-INF/views/back-office/article/fiche.jsp")
-                    .forward(request, response);
-                }
-                
-            }
-
-        } catch (Exception e) {
-            e.printStackTrace();
-            response.sendRedirect(request.getContextPath() + "/admin/home");
-        }
-
-       
-    }
-
-    @Override
-protected void doPost(HttpServletRequest request, HttpServletResponse response) 
+protected void doGet(HttpServletRequest request, HttpServletResponse response)
         throws ServletException, IOException {
 
-    String action = request.getParameter("action"); // Pour différencier 'delete' d'autres actions
-    String idParam = request.getParameter("id");
-    String slug = request.getParameter("slug");
-
-    System.out.println("Action = " + action);
-    System.out.println("idParam = " + idParam);
-    System.out.println("slug = " + slug);
-
-    if ("delete".equals(action) && idParam != null) {
-        try (Connection con = DatabaseConnection.getConnection()) {
+    try (Connection conn = DatabaseConnection.getConnection()) {
+        if (LoginServlet.verifySession(request, response)) {
             
-            int idArticle = Integer.parseInt(idParam);
+            String id = request.getParameter("id");
+            String slug = request.getParameter("slug");
+            String date = request.getParameter("date");
+            String action = request.getParameter("action");
             
-            // On crée le Timestamp de l'instant présent
-            Timestamp now = new Timestamp(System.currentTimeMillis());
-            
-            // Appel de ta fonction dans le DAO
             ArticleDao articleDAO = new ArticleDao();
-            Article article  = articleDAO.findByIdAndSlug(con, idArticle, slug);
-            articleDAO.updateDateSuppression(article.getId(), now, con);
-            
-            // Redirection vers la liste des articles avec un message de succès
-            response.sendRedirect(request.getContextPath() + "/admin/home");
-            
-        } catch (Exception e) {
-            e.printStackTrace();
-            response.sendRedirect(request.getContextPath() + "/admin/home");
+
+            // 1. PRIORITÉ : On vérifie d'abord si on veut supprimer
+            if ("delete".equals(action) && id != null) {
+
+                System.out.println("id = "+id);
+                System.out.println("slug = "+slug);
+                System.out.println("action = "+action);
+
+                int idArticle = Integer.parseInt(id);
+                Timestamp now = new Timestamp(System.currentTimeMillis());
+                articleDAO.updateDateSuppression(idArticle, now, conn);
+                
+                response.sendRedirect(request.getContextPath() + "/admin/home");
+                return; // Très important pour arrêter l'exécution ici
+            }
+
+            // 2. Ensuite, on vérifie si on doit afficher une fiche (id + slug + date présents)
+            if (id != null && slug != null && date != null) {
+                Article article = articleDAO.findByIdAndSlug(conn, Integer.parseInt(id), slug);
+                ImageDao imageDAO = new ImageDao();
+                List<Image> images = imageDAO.findByArticleId(conn, Integer.parseInt(id));
+                
+                request.setAttribute("images", images);
+                request.setAttribute("article", article);
+                request.getRequestDispatcher("/WEB-INF/views/back-office/article/fiche.jsp").forward(request, response);
+            } 
+            // 3. PAR DÉFAUT : On affiche la liste
+            else {
+                List<Article> articles = articleDAO.findAll(conn);
+                request.setAttribute("articles", articles);
+                request.getRequestDispatcher("/WEB-INF/views/back-office/article/list.jsp").forward(request, response);
+            }
         }
+    } catch (Exception e) {
+        e.printStackTrace();
+        response.sendRedirect(request.getContextPath() + "/admin/home?error=true");
     }
 }
+
 }
