@@ -39,9 +39,19 @@ public class ArticleDao {
         }
     }
 
+    public void updateDateSuppression(int idArticle, Timestamp dateSuppression, Connection con) throws SQLException {
+        String sql = "UPDATE article SET date_suppression = ? WHERE id = ?";
+
+        try (PreparedStatement ps = con.prepareStatement(sql)) {
+            ps.setTimestamp(1, dateSuppression);
+            ps.setInt(2, idArticle);
+            ps.executeUpdate();
+        }
+    }
+
     public List<Article> findAll(Connection conn) {
         List<Article> articles = new ArrayList<>();
-        String sql = "SELECT a.id,a.titre,a.slug,a.url,a.date_publication,c.designation,c.couleur_fond,c.couleur_texte,a.id_categorie FROM article a JOIN categorie c ON c.id = a.id_categorie ORDER BY date_publication DESC";
+        String sql = "SELECT a.id,a.titre,a.slug,a.url,a.date_publication,c.designation,c.couleur_fond,c.couleur_texte,a.id_categorie FROM article a JOIN categorie c ON c.id = a.id_categorie WHERE a.date_suppression IS NULL ORDER BY date_publication DESC";
 
         try (
                 PreparedStatement ps = conn.prepareStatement(sql); ResultSet rs = ps.executeQuery()) {
@@ -93,7 +103,7 @@ public class ArticleDao {
                 + "FROM article a "
                 + "JOIN categorie c "
                 + "ON c.id = a.id_categorie "
-                + "WHERE a.id = ? AND a.slug = ?";
+                + "WHERE a.id = ? AND a.slug = ? AND a.date_suppression IS NULL"; ;
 
         try (
                 PreparedStatement ps = conn.prepareStatement(sql)) {
@@ -138,7 +148,7 @@ public class ArticleDao {
 
     public int countArticlesToday(Connection conn) throws SQLException {
         // On compare la date_publication (sans l'heure) avec la date d'aujourd'hui
-        String sql = "SELECT COUNT(*) FROM article WHERE date_publication::date = CURRENT_DATE";
+        String sql = "SELECT COUNT(*) FROM article WHERE date_publication::date = CURRENT_DATE AND date_suppression IS NULL";
 
         try (PreparedStatement pstmt = conn.prepareStatement(sql); ResultSet rs = pstmt.executeQuery()) {
             if (rs.next()) {

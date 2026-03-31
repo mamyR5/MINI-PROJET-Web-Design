@@ -46,6 +46,7 @@ CREATE TABLE article(
    url TEXT,
    id_categorie INTEGER NOT NULL,
    id_utilisateur INTEGER NOT NULL,
+   date_suppression TIMESTAMP,
    PRIMARY KEY(id),
    UNIQUE(slug),
    FOREIGN KEY(id_categorie) REFERENCES categorie(id),
