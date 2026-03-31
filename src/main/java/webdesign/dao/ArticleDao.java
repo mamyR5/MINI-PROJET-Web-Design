@@ -136,6 +136,18 @@ public class ArticleDao {
         return articles;
     }
 
+    public int countArticlesToday(Connection conn) throws SQLException {
+        // On compare la date_publication (sans l'heure) avec la date d'aujourd'hui
+        String sql = "SELECT COUNT(*) FROM article WHERE date_publication::date = CURRENT_DATE";
+
+        try (PreparedStatement pstmt = conn.prepareStatement(sql); ResultSet rs = pstmt.executeQuery()) {
+            if (rs.next()) {
+                return rs.getInt(1);
+            }
+        }
+        return 0;
+    }
+
     // Récupérer un article par son id (page détail)
     public Article findById(Connection conn, int id) {
         Article article = null;
