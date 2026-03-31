@@ -112,6 +112,8 @@
 
                                                 <input type="hidden" name="id" value="<%= article.getId() %>">
 
+                                                <input type="hidden" name="slug" value="<%= article.getSlug() %>">
+
                                                 <input type="hidden" name="action" value="delete">
 
                                                 <button type="submit" class="action-item delete" title="Supprimer"
