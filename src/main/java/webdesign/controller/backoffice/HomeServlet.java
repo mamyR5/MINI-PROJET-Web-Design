@@ -21,7 +21,9 @@ public class HomeServlet extends HttpServlet {
 
             ArticleDao articleDAO = new ArticleDao();
             List<Article> articles = articleDAO.findAll(conn);
+            int todayCount = articleDAO.countArticlesToday(conn);
             request.setAttribute("articles", articles);
+            request.setAttribute("todayCount",todayCount);
             request.setAttribute("articleCount", articles.size());
             request.getRequestDispatcher("/WEB-INF/views/back-office/home.jsp")
                 .forward(request, response);

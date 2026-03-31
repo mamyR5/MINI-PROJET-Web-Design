@@ -12,6 +12,7 @@
         <%
             List<Article> articles = (List<Article>) request.getAttribute("articles");
             int articleCount = (int) request.getAttribute("articleCount");
+            int todayArticleCount = (int) request.getAttribute("todayCount");
         %>
 
         <div class="dashboard-layout">
@@ -36,7 +37,7 @@
                         </div>
                         <div class="stat-info">
                             <h3>Articles d'aujourd'hui</h3>
-                            <p class="stat-number">01</p>
+                            <p class="stat-number"><%=todayArticleCount%></p>
                         </div>
                     </div>
 
